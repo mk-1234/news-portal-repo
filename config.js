@@ -1,5 +1,5 @@
 module.exports = {
-    port:  process.env.PORT || 8081,
+    port:  process.env.PORT || 8080,
     pool: {
       connectionLimit : 100,
       host     : 'localhost',
