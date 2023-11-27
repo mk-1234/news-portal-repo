@@ -1,5 +1,4 @@
 const express = require('express');
-const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -10,6 +9,8 @@ const bcrypt = require('bcrypt');
 const helmet = require('helmet');
 
 const config = require('./config');
+
+const app = express();
 
 const pool = mysql.createPool(config.pool);
 
