@@ -170,7 +170,7 @@ export class ProfileComponent implements OnInit {
       delete tempObj['display'];
       tempObj = Object.assign({ 'display': 'none' }, tempObj);
     }
-    console.log('tab style:', tempObj);
+    //console.log('tab style:', tempObj);
     return tempObj;
   }
 
