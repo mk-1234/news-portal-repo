@@ -14,6 +14,7 @@ module.exports = {
       user     : 'g0arga8ctz031l48',
       password : 'mftaskya376b73p0',
       database : 'd4mtfzzkolfb74cm',
+      port     : 3306,
       debug    :  false
     },
     secret:'stringfortokenABcaBcEfhfddSfht3123dfsVVsdZr62'
