@@ -1,0 +1,81 @@
+<section *ngIf="article && !writingArticle">
+    <div class="article-image" [ngStyle]="setImageStyle()"></div>
+    <div class="article-details">
+        <h1>{{article.title}}</h1>
+        <div class="added-info">
+            <p>
+                <span class="link-style" [routerLink]="['../profile', article.authorId]">{{article.username}}</span>,
+                    {{transformDate(article.createdDate)}}
+                <span *ngIf="writerLoggedIn && mayWrite" class="writer-actions">|
+                    <div class="edit" (click)="startEdit()">
+                        <span class="material-symbols-outlined">edit</span>
+                        <span class="desc-text">Edit</span>
+                    </div> |
+                    <div class="delete" (click)="deleteArticle(article.id)">
+                        <span class="material-symbols-outlined">delete</span>
+                        <span class="desc-text">Delete</span>
+                    </div>
+                    <!--<span (click)="startEdit()" class="edit">>> Edit</span>--> |
+                    <!--<span class="material-symbols-outlined delete" (click)="delete(article.id)">delete</span>-->
+                    <!--<span (click)="delete(article.id)" class="delete">>> Delete</span>-->
+                </span>
+            </p>
+            <p class="link-style" [routerLink]="['../category', article.category]">{{article.category}}</p>
+        </div>
+        <!--<p class="article-text">{{article.article}}</p>-->
+        <p class="article-text" [innerHTML]="article.article"></p>
+        <app-comments [articleId]="article.id" [user]="user"></app-comments>
+    </div>
+</section>
+<section *ngIf="writingArticle">
+    <div>
+        <h2>Article form</h2>
+        <form [formGroup]="articleForm" (submit)="submitArticle()">
+            <label for="title">
+                <p>Title</p>
+                <input type="text" id="title" formControlName="title" placeholder="Enter the title of the article" />
+            </label>
+        
+            <label for="category">
+                <p>Select category</p>
+                <select id="category" formControlName="category">
+                    <option name="domestic" value="Domestic">Domestic</option>
+                    <option name="international" value="International">International</option>
+                    <option name="entertainment" value="Entertainment">Entertainment</option>
+                    <option name="sport" value="Sport">Sport</option>
+                </select>
+            </label>
+        
+            <label for="image">
+                <p>Image
+                    <span class="default-img-msg">-> Default image will be used if name is not entered.</span>
+                </p>
+                <!--<input type="file" id="image" formControlName="image" placeholder="Add image" />-->
+                <input type="text" id="image" formControlName="image" placeholder="Enter the name of the image" />
+                
+            </label>
+        
+            <label for="summary">
+                <p>Summary</p>
+                <input type="text" id="summary" formControlName="summary" placeholder="Enter article summary" />
+            </label>
+        
+            <label for="article">
+                <p>Article</p>
+                <textarea id="article" formControlName="article" (select)="textHighlight($event)" placeholder="Write your article here"></textarea>
+                <button type="button" (click)="applyFormat('h3')">h3</button>
+                <button type="button" (click)="applyFormat('p')">p</button>
+                <button type="button" (click)="applyFormat('strong')">B</button>
+                <button type="button" (click)="applyFormat('em')">I</button>
+            </label>
+        
+            <br />
+            <div>
+                <input *ngIf="!articleForm.valid" class="add-article-invalid" value="Submit" disabled/>
+                <input *ngIf="articleForm.valid" class="add-article-valid" type="submit" value="Submit"/>
+                <input class="cancel-button" type="button" value="Cancel" (click)="cancelEdit()" />
+            </div>
+            <br />
+        </form>
+    </div>
+</section>

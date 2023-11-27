@@ -1,0 +1,123 @@
+@media only screen and (max-width: 600px) {
+    .mobile-nav {
+        display: block;
+    }
+    .mobile-nav span {
+        padding: 10px;
+        background-color: rgba(64, 80, 100, 0.6);
+        border-radius: 10px;
+        box-sizing: border-box;
+        border: 2px solid white;
+        color: white;
+        cursor: pointer;
+    }
+    .larger-nav {
+        display: none;
+    }
+    ul {
+        flex-direction: column;
+    }
+    li {
+        width: 100%;
+        padding: 5px 0px;
+    }
+    a {
+        display: inline-block;
+        width: 100%;
+    }
+}
+@media only screen and (min-width: 600px) {
+    .mobile-nav {
+        display: none;
+    }
+    /*.larger-nav {
+        display: flex;
+    }*/
+    nav {
+        position: fixed;
+        height: 50px;
+        width: 94%;
+        font-size: 12px;
+    }
+    ul {
+        flex-direction: row;
+    }
+    li {
+        width: 200px;
+    }
+    a {
+        padding: 10px 15px;
+        margin: 0px;
+        border-bottom: 2px solid rgba(255, 255, 255, 0);
+    }  
+    a:hover {
+        border-bottom: 2px solid darkred;
+    }
+}
+@media only screen and (min-width: 1200px) {
+    nav {
+        height: 80px;
+        width: 80%;
+        font-size: 16px;
+    }
+    a {
+        padding: 15px 20px;
+        margin: 5px;
+    }
+}
+nav {
+    /*height: 100px;*/
+    /*height: 80px;*/
+    /*position: fixed;*/
+    /*background-color: rgb(180, 180, 180);*/
+    background-color: rgb(200, 200, 200);
+    z-index: 10;
+    /*width: 1200px;*/
+    /*width: 80%;*/
+    max-width: 1200px;
+}
+
+.for-scrolling {
+    border-bottom: 5px solid darkred;
+    background-color: rgb(180, 180, 180);
+}
+  
+ul {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+  
+li {
+    display: inline-block;
+    /*width: 200px;*/
+    text-align: center;
+}
+  
+a {
+    /*font-family: myFont2;*/
+    /*font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;*/
+    text-decoration: none;
+    text-transform: uppercase;
+    color: black;
+    font-weight: bold;
+    /*font-size: 0.7em;*/
+    /*font-size: 18px;*/
+    /*padding: 15px 20px;
+    margin: 5px;*/
+    /*border-bottom: 2px solid rgba(255, 255, 255, 0);*/
+    transition: 0.7s;
+}
+  
+a:hover {
+    color: darkred;
+    /*border-bottom: 2px solid darkred;*/
+}
+  
+.home-link:hover {
+    border-bottom: 2px solid rgba(255, 255, 255, 0);
+}

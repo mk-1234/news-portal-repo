@@ -1,0 +1,20 @@
+<section>
+    <h2>{{category}}
+        <span *ngIf="loggedIn && mayWrite" class="write-article"> >
+        <!--<span class="write-article"> >-->
+            <!--<a routerLink="../../-1">Write an article</a>-->
+            <a (click)="writeArticle()">Write an article</a>
+        </span>
+    </h2>
+    <div *ngFor="let a of articles" class="article">
+        <div class="article-image" [routerLink]="['../../', a.id]" [ngStyle]="setImageStyle(a.image)"></div>
+        <div>
+            <h3 class="article-title" [routerLink]="['../../', a.id]">{{a.title}}</h3>
+            <p class="article-author">
+                <span class="link-style" [routerLink]="['../../profile', a.authorId]">{{a.username}}</span>, 
+                {{transformDate(a.createdDate)}}
+            </p>
+            <p class="article-summary">{{a.summary}}</p>
+        </div>
+    </div>
+</section>

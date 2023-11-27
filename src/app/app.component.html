@@ -1,0 +1,26 @@
+<main>
+    <app-navigation></app-navigation>
+
+    <div class="main-banner">
+        <hr />
+        <h1 routerLink="/">News Portal</h1>
+        <hr />
+    </div>
+
+    <p *ngIf="!loggedIn" class="log-sgnup">
+        <a [routerLink]="['login']" class="auth-links">Login</a> / <a [routerLink]="['signup']" class="auth-links">Signup</a>
+    </p>
+    <p *ngIf="loggedIn" class="log-sgnup">
+        <span class="logged-in">Welcome, <span class="name">{{user.username}}</span></span> |
+        <!--<a [routerLink]="['profile', user.id]" class="logged-in profile auth-links">Profile</a> |-->
+        <a class="logged-in profile auth-links" (click)="goToProfile()">Profile</a> |
+        <a class="auth-links" (click)="logout()">Logout</a>
+    </p>
+
+    <router-outlet></router-outlet>
+    <footer>
+        <hr />
+        <p id="author">Author: Miroslav Krznar</p>
+        <p id="mail">E-mail: m.krznar&#64;gmail.com</p>
+    </footer>
+</main>

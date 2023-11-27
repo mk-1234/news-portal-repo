@@ -1,0 +1,78 @@
+<section>
+    <div *ngIf="!userLoggedIn && !inProfile">
+        <p class="smaller-font">>><span class="link-style" [routerLink]="['../login']">Log in</span> to write a comment</p>
+    </div>
+    <div *ngIf="userLoggedIn && !inProfile">
+        <p *ngIf="!writingComment && !editingComment && user.level < 3" class="smaller-font link-style" (click)="writingComment=true">
+        >> Add new comment
+        </p>
+        <p *ngIf="user.level == 3" class="banMessage">You are banned from commenting!</p>
+    </div>
+    
+    <div class="comment-area" *ngIf="writingComment">
+        <textarea [(ngModel)]="commentText" placeholder="Write your comment here"></textarea><br />
+        <button *ngIf="commentText == ''" class="comment-submit" disabled>Submit</button>
+        <button *ngIf="commentText != ''" class="comment-submit-valid" (click)="addComment()">Submit</button>
+        <button class="comment-cancel" (click)="endWriting()">Cancel</button>
+    </div>
+    
+    <div *ngIf="comments && comments.length > 0">
+        <div class="comment-area" *ngFor="let c of comments; let i = index" [ngStyle]="setBorder(i)">
+            <!--<div *ngIf="editIndex != c.id">-->
+            <div>
+                <div class="for-flex">
+                    <div *ngIf="!inProfile">
+                        <span class="author-link" [routerLink]="['../profile', c.userId]">{{c.username}}</span>
+                        , {{transformDate(c.createdDate)}}
+                    </div>
+                    <div *ngIf="inProfile">
+                        <span class="author-link" [routerLink]="['../../', c.articleId]">{{c.title}}</span>
+                        , {{transformDate(c.createdDate)}}
+                    </div>
+                    <div *ngIf="user && (user.id == c.userId || mayEdit) && !writingComment" class="actions">
+                        <div *ngIf="!editingComment && editIndex != c.id" class="actions">
+                            <div class="edit" (click)="startEdit(c.id)">
+                                <span class="material-symbols-outlined">edit</span>
+                                <span class="desc-text">Edit</span>
+                            </div>
+                            <div class="delete" (click)="delete(c.id)">
+                                <span class="material-symbols-outlined">delete</span>
+                                <span class="desc-text">Delete</span>
+                            </div>
+                        </div>
+                        <div *ngIf="editingComment && editIndex == c.id" class="actions">
+                            <div class="update" (click)="doneEdit(c.id, c.articleId, c.userId, c.createdDate)">
+                                <span class="material-symbols-outlined">done</span>
+                                <span class="desc-text">Update</span>
+                            </div>
+                            <div class="delete" (click)="cancelEdit()">
+                                <span class="material-symbols-outlined">close</span>
+                                <span class="desc-text">Cancel</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p *ngIf="editIndex != c.id">{{c.comment}}</p>
+                <textarea *ngIf="editIndex == c.id" [(ngModel)]="commentText"></textarea>
+            </div>
+            <!--<div *ngIf="editIndex == c.id" class="textarea-editing">
+                <textarea [(ngModel)]="commentText"></textarea>
+            </div>-->
+            <hr *ngIf="i < comments.length - 1" />
+            <!--<div *ngIf="user && user.id == c.userId && !writingComment && mayEdit" class="flex-align-middle">-->
+            <!--<div *ngIf="user && (user.id == c.userId || mayEdit) && !writingComment" class="flex-align-middle">
+                <div *ngIf="!editingComment" class="buttons">
+                    <button id="edit" (click)="startEdit(c.id)">Edit</button>
+                    <button id="delete" (click)="delete(c.id)">Delete</button>
+                </div>
+                <div *ngIf="editingComment" class="buttons">
+                    <button id="update" (click)="doneEdit(c.id, c.articleId, c.userId, c.createdDate)">Update</button>
+                    <button id="cancel-edit" (click)="cancelEdit()">Cancel</button>
+                </div>
+            </div>-->
+        </div>
+    </div>
+    <div *ngIf="!comments || comments.length == 0">
+        <p class="no-comments-msg">There are no comments.</p>
+    </div>
+</section>
