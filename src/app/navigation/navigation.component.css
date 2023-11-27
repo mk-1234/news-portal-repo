@@ -30,9 +30,6 @@
     .mobile-nav {
         display: none;
     }
-    /*.larger-nav {
-        display: flex;
-    }*/
     nav {
         position: fixed;
         height: 50px;
@@ -66,14 +63,8 @@
     }
 }
 nav {
-    /*height: 100px;*/
-    /*height: 80px;*/
-    /*position: fixed;*/
-    /*background-color: rgb(180, 180, 180);*/
     background-color: rgb(200, 200, 200);
     z-index: 10;
-    /*width: 1200px;*/
-    /*width: 80%;*/
     max-width: 1200px;
 }
 
@@ -94,28 +85,19 @@ ul {
   
 li {
     display: inline-block;
-    /*width: 200px;*/
     text-align: center;
 }
   
 a {
-    /*font-family: myFont2;*/
-    /*font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;*/
     text-decoration: none;
     text-transform: uppercase;
     color: black;
     font-weight: bold;
-    /*font-size: 0.7em;*/
-    /*font-size: 18px;*/
-    /*padding: 15px 20px;
-    margin: 5px;*/
-    /*border-bottom: 2px solid rgba(255, 255, 255, 0);*/
     transition: 0.7s;
 }
   
 a:hover {
     color: darkred;
-    /*border-bottom: 2px solid darkred;*/
 }
   
 .home-link:hover {
