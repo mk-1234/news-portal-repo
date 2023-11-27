@@ -4,9 +4,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const mysql = require('mysql');
-//const path = require('path');
+const path = require('path');
 const jwt = require('jsonwebtoken');
-//const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const helmet = require('helmet');
 
@@ -32,7 +31,6 @@ app.use(function (req, res, next) {
 
 app.use(morgan('dev'));
 
-//const authRouter = require('./app/routes/authenticate')(express, pool, jwt, config.secret, crypto);
 const authRouter = require('./app/routes/authenticate')(express, pool, jwt, config.secret, bcrypt);
 app.use('/authenticate', authRouter);
 
