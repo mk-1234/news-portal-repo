@@ -27,7 +27,8 @@ export class NavigationComponent {
     if (!this.navMenuOpened) {
       return {
         'position': 'absolute',
-        'margin': '16px 10px'
+        //'margin': '16px 10px',
+        //'padding': '16px 10px'
       };
     } else {
       /*return {

@@ -102,6 +102,10 @@ export class ArticleDetailComponent implements OnInit {
         if (res.success) {
           this.article = res.data[0];
         }
+      }, err => {
+        console.log('error in get article:', err);
+        console.log('error message:', err.error.message);
+        this.app.logout();
       });
     }
   }
@@ -125,6 +129,10 @@ export class ArticleDetailComponent implements OnInit {
           this.editingArticle = false;
           this.writingArticle = false;
         }
+      }, err => {
+        console.log('error in edit article:', err);
+        console.log('error message:', err.error.message);
+        this.app.logout();
       });
     } else {
       let a = this.populateArticleFields(ArticleAction.WRITE);
@@ -141,6 +149,10 @@ export class ArticleDetailComponent implements OnInit {
           //this.router.navigate(['../', res.id]);
           this.app.refreshPage(`../${res.id}`);
         }
+      }, err => {
+        console.log('error in add article:', err);
+        console.log('error message:', err.error.message);
+        this.app.logout();
       });
     }
   }
@@ -154,7 +166,7 @@ export class ArticleDetailComponent implements OnInit {
         category: this.articleForm.value.category,
         summary: this.articleForm.value.summary,
         article: this.articleForm.value.article,
-        image: this.articleForm.value.image,
+        image: this.articleForm.value.image ? this.articleForm.value.image : 'test_image.png',
         createdDate: this.getDate()
       };
     } else if (action == ArticleAction.EDIT) {
@@ -165,7 +177,7 @@ export class ArticleDetailComponent implements OnInit {
         category: this.articleForm.value.category,
         summary: this.articleForm.value.summary,
         article: this.articleForm.value.article,
-        image: this.articleForm.value.image,
+        image: this.articleForm.value.image ? this.articleForm.value.image : 'test_image.png',
         createdDate: this.article.createdDate ? this.article.createdDate : this.getDate()
       };
     }
@@ -205,6 +217,10 @@ export class ArticleDetailComponent implements OnInit {
       } else {
         console.log('delete fail message:', res.message);
       }
+    }, err => {
+      console.log('error in delete article:', err);
+      console.log('error message:', err.error.message);
+      this.app.logout();
     });
   }
 
@@ -219,7 +235,12 @@ export class ArticleDetailComponent implements OnInit {
     if (this.startIndex < 0 || this.endIndex < 0) return;
     let currentText = this.articleForm.value.article;
     let textBeforeStartIndex = currentText?.substring(0, this.startIndex);
-    let textMiddle = `<${elType}>` + currentText?.substring(this.startIndex, this.endIndex) + `</${elType}>`;
+    let textMiddle = '';
+    if (elType == 'br' || elType == 'hr') {
+      textMiddle = `<${elType} />` + currentText?.substring(this.startIndex, this.endIndex);
+    } else {
+      textMiddle = `<${elType}>` + currentText?.substring(this.startIndex, this.endIndex) + `</${elType}>`;
+    }
     let textAfterEndIndex = currentText?.substring(this.endIndex);
     console.log('start:', textBeforeStartIndex, '\nmiddle:', textMiddle, '\nend:', textAfterEndIndex);
     this.articleForm.controls['article'].setValue(textBeforeStartIndex + textMiddle + textAfterEndIndex);

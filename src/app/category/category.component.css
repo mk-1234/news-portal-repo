@@ -42,6 +42,12 @@
     .article>:nth-child(1) {
         height: 200px;
     }
+    .article-title {
+        font-size: 16px;
+    }
+    .article-author, .article-summary {
+        font-size: 14px;
+    }
 }
 @media only screen and (min-width: 1200px) {
     .article {

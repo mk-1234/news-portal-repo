@@ -1,5 +1,5 @@
 <section *ngIf="profileUser">
-    <h2>{{profileUser.username}}</h2>
+    <h2>{{profileUser.username}}'s Profile</h2>
     <div class="tabs">
         <p *ngFor="let t of tabs, let i = index">
             <span class="large-tab" (click)="selectTab(i)" [ngStyle]="setActiveTabStyle(0, t[1], i)">{{t[0]}}</span>
@@ -22,10 +22,10 @@
                 <p><strong class="link-style" (click)="goToUserProfile(u.id)">{{u.username}}</strong>, {{getRole(u.level)}} (level: {{u.level}})</p>
                 <p *ngIf="u.level == 3" class="ban-msg">User is banned!</p>
                 <div class="buttons-cont">
-                    <button *ngIf="u.level > 0" (click)="increaseLevel(u)" class="mod-button-valid"> < </button>
-                    <button *ngIf="u.level <= 0" (click)="increaseLevel(u)" class="mod-button-invalid"> < </button>
-                    <button *ngIf="u.level < 2" (click)="decreaseLevel(u)" class="mod-button-valid"> > </button>
-                    <button *ngIf="u.level >= 2" (click)="decreaseLevel(u)" class="mod-button-invalid"> > </button>
+                    <button *ngIf="u.level > 0" (click)="increaseLevel(u)" class="mod-button-valid">&#60;</button>
+                    <button *ngIf="u.level <= 0" (click)="increaseLevel(u)" class="mod-button-invalid">&#60;</button>
+                    <button *ngIf="u.level < 2" (click)="decreaseLevel(u)" class="mod-button-valid">&#62;</button>
+                    <button *ngIf="u.level >= 2" (click)="decreaseLevel(u)" class="mod-button-invalid">&#62;</button>
                     <button *ngIf="u.level > 0 && u.level < 3" (click)="banUser(u)" class="banBtn">Ban user</button>
                     <button *ngIf="u.level > 0" (click)="deleteUser(u.id)" class="delBtn">Delete user</button>
                 </div>
@@ -38,15 +38,16 @@
     <div *ngIf="tabs[0][1] && adminLoggedIn && !onOwnProfile" class="admin-settings-other">
         <h3>Administrator Settings</h3>
         <div class="settings-cont">
-            <p>{{profileUser.username}}, level: {{profileUser.level}}</p>
+            <!--<p>{{profileUser.username}}, level: {{profileUser.level}}</p>-->
+            <p>{{profileUser.username}}, {{getRole(profileUser.level)}} (level: {{profileUser.level}})</p>
             <p *ngIf="profileUser.level == 3" class="ban-msg">User is banned!</p>
             <div class="buttons-cont">
                 <!--<button (click)="increaseLevel(profileUser)" class="modBtn"> < </button>
                 <button (click)="decreaseLevel(profileUser)" class="modBtn"> > </button>-->
-                <button *ngIf="profileUser.level > 0" (click)="increaseLevel(profileUser)" class="mod-button-valid"> < </button>
-                <button *ngIf="profileUser.level <= 0" (click)="increaseLevel(profileUser)" class="mod-button-invalid"> < </button>
-                <button *ngIf="profileUser.level < 2" (click)="decreaseLevel(profileUser)" class="mod-button-valid"> > </button>
-                <button *ngIf="profileUser.level >= 2" (click)="decreaseLevel(profileUser)" class="mod-button-invalid"> > </button>
+                <button *ngIf="profileUser.level > 0" (click)="increaseLevel(profileUser)" class="mod-button-valid">&#60;</button>
+                <button *ngIf="profileUser.level <= 0" (click)="increaseLevel(profileUser)" class="mod-button-invalid">&#60;</button>
+                <button *ngIf="profileUser.level < 2" (click)="decreaseLevel(profileUser)" class="mod-button-valid">&#62;</button>
+                <button *ngIf="profileUser.level >= 2" (click)="decreaseLevel(profileUser)" class="mod-button-invalid">&#62;</button>
                 <button *ngIf="profileUser.level > 0 && profileUser.level < 3" (click)="banUser(profileUser)" class="banBtn">Ban user</button>
                 <button *ngIf="profileUser.level > 0" (click)="deleteUser(profileUser.id)" class="delBtn">Delete user</button>
             </div>

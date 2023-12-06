@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
   errorMsg: string = '';
 
   tabs = [
-    ['Administrator Settings', true], 
+    ['Administrator Settings', false], 
     ['User Settings', false], 
     ['Articles', false], 
     ['Comments', false]
@@ -75,13 +75,22 @@ export class ProfileComponent implements OnInit {
       if (res.success) {
         this.profileUser = res.data[0];
       }
+    }, err => {
+      console.log('error in get user:', err);
+      console.log('error message:', err.error.message);
+      this.app.logout();
     });
+
     this.api.getArticlesByAuthor(userId).subscribe(res => {
       console.log('get articles by author res', res);
       console.log('res message:', res.message);
       if (res.success) {
         this.articles = res.data;
       }
+    }, err => {
+      console.log('error in get articles by author:', err);
+      console.log('error message:', err.error.message);
+      this.app.logout();
     });
     
     this.auth.getAllUsers().subscribe(res => {
@@ -90,6 +99,10 @@ export class ProfileComponent implements OnInit {
       if (res.success) {
         this.users = res.data;
       }
+    }, err => {
+      console.log('error in get all users:', err);
+      console.log('error message:', err.error.message);
+      this.app.logout();
     });
 
     this.checkUser(userId);
@@ -115,8 +128,11 @@ export class ProfileComponent implements OnInit {
         this.maySeeComments = true;
         this.onOwnProfile = this.loggedInUser.id == profileUserId;
         this.adminLoggedIn = this.loggedInUser.level == 0;
+        if (this.adminLoggedIn) this.tabs[0][1] = true;
+        else this.tabs[1][1] = true;
       } else {
         this.maySeeComments = false;
+        this.tabs[2][1] = true;
       }
     }
   }
@@ -221,6 +237,10 @@ export class ProfileComponent implements OnInit {
         u.level -= 1;
         console.log('level increased to', u.level);
       }
+    }, err => {
+      console.log('error in edit user level:', err);
+      console.log('error message:', err.error.message);
+      this.app.logout();
     });
   }
 
@@ -244,6 +264,10 @@ export class ProfileComponent implements OnInit {
         u.level += 1;
         console.log('level decreased to', u.level);
       }
+    }, err => {
+      console.log('error in edit user level:', err);
+      console.log('error message:', err.error.message);
+      this.app.logout();
     });
   }
 
@@ -264,6 +288,10 @@ export class ProfileComponent implements OnInit {
         u.level = 3;
         console.log('user banned, level set to', u.level);
       }
+    }, err => {
+      console.log('error in ban user:', err);
+      console.log('error message:', err.error.message);
+      this.app.logout();
     });
   }
 
@@ -298,6 +326,10 @@ export class ProfileComponent implements OnInit {
           } else {
             console.log('user not updated');
           }
+        }, err => {
+          console.log('error in update user:', err);
+          console.log('error message:', err.error.message);
+          this.app.logout();
         });
       }
     }
@@ -313,6 +345,10 @@ export class ProfileComponent implements OnInit {
         });
         this.users = tempUsers;
       }
+    }, err => {
+      console.log('error in delete user:', err);
+      console.log('error message:', err.error.message);
+      this.app.logout();
     });
   }
 
@@ -323,6 +359,10 @@ export class ProfileComponent implements OnInit {
       if (res.success) {
         this.app.logout();
       }
+    }, err => {
+      console.log('error in delete user self:', err);
+      console.log('error message:', err.error.message);
+      this.app.logout();
     });
   }
 

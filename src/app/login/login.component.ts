@@ -41,6 +41,10 @@ export class LoginComponent {
       } else {
         console.log('login failed');
       }
+    }, err => {
+      console.log('error in login:', err);
+      console.log('error message:', err.error.message);
+      this.app.logout();
     });
   }
 

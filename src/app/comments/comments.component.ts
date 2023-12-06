@@ -41,6 +41,10 @@ export class CommentsComponent implements OnInit, OnChanges {
         if (res.success) {
           this.comments = res.data;
         }
+      }, err => {
+        console.log('error in get comments by user:', err);
+        console.log('error message:', err.error.message);
+        this.app.logout();
       });
     } else {
       console.log('article id:', this.articleId);
@@ -51,6 +55,10 @@ export class CommentsComponent implements OnInit, OnChanges {
         if (res.success) {
           this.comments = res.data;
         }
+      }, err => {
+        console.log('error in get comments by article:', err);
+        console.log('error message:', err.error.message);
+        this.app.logout();
       });
     }
     //this.user['id'] = 1;
@@ -114,6 +122,10 @@ export class CommentsComponent implements OnInit, OnChanges {
         //this.router.navigate(['../', res.id]);
         this.app.refreshPage(`../${this.articleId}`);
       }
+    }, err => {
+      console.log('error in add comment:', err);
+      console.log('error message:', err.error.message);
+      this.app.logout();
     });
     this.endWriting();
   }
@@ -161,6 +173,10 @@ export class CommentsComponent implements OnInit, OnChanges {
       } else {
         console.log('update comment fail message:', res.message);
       }
+    }, err => {
+      console.log('error in edit comment:', err);
+      console.log('error message:', err.error.message);
+      this.app.logout();
     });
   }
 
@@ -182,6 +198,10 @@ export class CommentsComponent implements OnInit, OnChanges {
       } else {
         console.log('delete comment fail message:', res.message);
       }
+    }, err => {
+      console.log('error in delete comment:', err);
+      console.log('error message:', err.error.message);
+      this.app.logout();
     });
   }
 

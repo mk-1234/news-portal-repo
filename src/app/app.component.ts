@@ -27,9 +27,10 @@ export class AppComponent implements OnInit {
         this.user = res.user;
         this.loggedIn = true;
       } else {
-        this.loggedIn = false;
+        /*this.loggedIn = false;
         this.user = null;
-        this.router.navigate(['/']);
+        this.router.navigate(['/']);*/
+        this.logout();
       }
     }, (err) => {
       console.log(' --- ERROR ---\n', err);

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-signup',
@@ -21,7 +22,7 @@ export class SignupComponent implements OnInit {
   wrongPass : boolean = false;
   errorMsg: string = '';
 
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService, private app: AppComponent) { }
 
   ngOnInit(): void {
     
@@ -48,9 +49,14 @@ export class SignupComponent implements OnInit {
           this.errorMsg = res.message;
           if (res.success) {
             console.log('user added:', res.id);
+            this.app.refreshPage('login');
           } else {
             console.log('user not added');
           }
+        }, err => {
+          console.log('error in add user:', err);
+          console.log('error message:', err.error.message);
+          this.app.logout();
         });
       }
     }

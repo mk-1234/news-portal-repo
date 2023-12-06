@@ -23,6 +23,8 @@ export class ArticlesComponent implements OnInit {
   
   categories : string[] = ['Domestic', 'International', 'Entertainment', 'Sport'];
 
+  interval: any;
+
   constructor(private api: ApiService, private app: AppComponent, private router: Router) { }
 
   ngOnInit(): void {
@@ -62,7 +64,12 @@ export class ArticlesComponent implements OnInit {
           }
         }
       }
+    }, err => {
+      console.log('error in get articles by category and limit:', err);
+      console.log('error message:', err.error.message);
+      this.app.logout();
     });
+
     this.api.getArticlesbyCategoryAndLimit('International').subscribe(res => {
       if (res.success) {
         //this.articles.push(res.data);
@@ -81,7 +88,12 @@ export class ArticlesComponent implements OnInit {
           }
         }
       }
+    }, err => {
+      console.log('error in get articles by category and limit:', err);
+      console.log('error message:', err.error.message);
+      this.app.logout();
     });
+
     this.api.getArticlesbyCategoryAndLimit('Entertainment').subscribe(res => {
       if (res.success) {
         //this.articles.push(res.data);
@@ -100,7 +112,12 @@ export class ArticlesComponent implements OnInit {
           }
         }
       }
+    }, err => {
+      console.log('error in get articles by category and limit:', err);
+      console.log('error message:', err.error.message);
+      this.app.logout();
     });
+
     this.api.getArticlesbyCategoryAndLimit('Sport').subscribe(res => {
       if (res.success) {
         //this.articles.push(res.data);
@@ -119,10 +136,44 @@ export class ArticlesComponent implements OnInit {
           }
         }
       }
+    }, err => {
+      console.log('error in get articles by category and limit:', err);
+      console.log('error message:', err.error.message);
+      this.app.logout();
     });
+
+    /*if (this.app.getUser()) {
+      this.loggedIn = this.app.loggedIn;
+      this.mayWrite = this.app.getUser().level < 2 ? true : false;
+    }*/
+    this.checkUser();
+
+    this.interval = setInterval(() => {
+      console.log('checking user...');
+      if (!sessionStorage.getItem('token')) {
+        console.log('no token, clearing interval');
+        clearInterval(this.interval);
+      }
+      this.checkUser();
+      if (this.app.getUser()) {
+        console.log('clearing interval, user found');
+        clearInterval(this.interval);
+      }
+    }, 200);
+  }
+
+  checkUser(): void {
     if (this.app.getUser()) {
       this.loggedIn = this.app.loggedIn;
       this.mayWrite = this.app.getUser().level < 2 ? true : false;
+    } else {
+      console.log('could not get user from articles');
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.interval) {
+      clearInterval(this.interval);
     }
   }
 

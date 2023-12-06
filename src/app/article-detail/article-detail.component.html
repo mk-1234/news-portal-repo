@@ -63,10 +63,12 @@
             <label for="article">
                 <p>Article</p>
                 <textarea id="article" formControlName="article" (select)="textHighlight($event)" placeholder="Write your article here"></textarea>
-                <button type="button" (click)="applyFormat('h3')">h3</button>
-                <button type="button" (click)="applyFormat('p')">p</button>
-                <button type="button" (click)="applyFormat('strong')">B</button>
-                <button type="button" (click)="applyFormat('em')">I</button>
+                <button class="style-button" type="button" (click)="applyFormat('h3')">h3</button>
+                <button class="style-button" type="button" (click)="applyFormat('p')">p</button>
+                <button class="style-button" type="button" (click)="applyFormat('strong')">B</button>
+                <button class="style-button" type="button" (click)="applyFormat('em')">I</button>
+                <button class="style-button" type="button" (click)="applyFormat('br')">br</button>
+                <button class="style-button" type="button" (click)="applyFormat('hr')">hr</button>
             </label>
         
             <br />

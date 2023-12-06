@@ -8,63 +8,68 @@
     <p *ngIf="loggedIn && mayWrite" class="write-article"> >
         <a (click)="writeArticle(c)">Write an article</a>
     </p>
-    <div class="flex-container-main">
-        <div class="main" *ngIf="mainArticle[i]" [routerLink]="mainArticle[i].id">
-            <div class="imageclass" [ngStyle]="setImageStyle(mainArticle[i].image)">
-                <p class="maintitle">{{mainArticle[i].title}}</p>
-                <div class="summary-writer">
-                    <p class="mainsummary">{{mainArticle[i].summary}}</p>
-                    <p class="mainauthor">by 
-                        <a [routerLink]="['profile', mainArticle[i].authorId]">{{mainArticle[i].username}}</a>, 
-                        <em>{{transformDate(mainArticle[i].createdDate)}}</em>
-                    </p>
+    <div *ngIf="mainArticle[i] && sideArticles[i].length > 0 && bottomArticles[i].length > 0">
+        <div class="flex-container-main">
+            <div class="main" *ngIf="mainArticle[i]" [routerLink]="mainArticle[i].id">
+                <div class="imageclass" [ngStyle]="setImageStyle(mainArticle[i].image)">
+                    <p class="maintitle">{{mainArticle[i].title}}</p>
+                    <div class="summary-writer">
+                        <p class="mainsummary">{{mainArticle[i].summary}}</p>
+                        <p class="mainauthor">by 
+                            <a [routerLink]="['profile', mainArticle[i].authorId]">{{mainArticle[i].username}}</a>, 
+                            <em>{{transformDate(mainArticle[i].createdDate)}}</em>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-container-side">
+                <div *ngFor="let sA of sideArticles[i]" class="side-article" [routerLink]="sA.id" (mouseenter)="setArticleFocus(sA.id, i)">
+                    <div class="article">
+                        <div class="imageclass" [ngStyle]="setImageStyle(sA.image)">
+                            <p class="sidetitle">{{sA.title}}</p>
+                            <p class="sideauthor">by 
+                                <a [routerLink]="['profile', sA.authorId]">{{sA.username}}</a>, 
+                                <em>{{transformDate(sA.createdDate)}}</em>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="flex-container-side">
-            <div *ngFor="let sA of sideArticles[i]" class="side-article" [routerLink]="sA.id" (mouseenter)="setArticleFocus(sA.id, i)">
+        <div class="flex-container-bottom">
+            <div *ngFor="let bA of bottomArticles[i]" class="bottom-article" [routerLink]="bA.id" (mouseenter)="setArticleFocus(bA.id, i)">
                 <div class="article">
-                    <div class="imageclass" [ngStyle]="setImageStyle(sA.image)">
-                        <p class="sidetitle">{{sA.title}}</p>
-                        <p class="sideauthor">by 
-                            <a [routerLink]="['profile', sA.authorId]">{{sA.username}}</a>, 
-                            <em>{{transformDate(sA.createdDate)}}</em>
+                    <div class="imageclass" [ngStyle]="setImageStyle(bA.image)">
+                        <!--<p class="sidetitle">{{bA.title}}</p>-->
+                    </div>
+                    <div class="bottom-article-info">
+                        <p>{{bA.title}}</p>
+                        <p>by 
+                            <a [routerLink]="['profile', bA.authorId]">{{bA.username}}</a>, 
+                            <em>{{transformDate(bA.createdDate)}}</em>
                         </p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="flex-container-bottom">
-        <div *ngFor="let bA of bottomArticles[i]" class="bottom-article" [routerLink]="bA.id" (mouseenter)="setArticleFocus(bA.id, i)">
-            <div class="article">
-                <div class="imageclass" [ngStyle]="setImageStyle(bA.image)">
-                    <!--<p class="sidetitle">{{bA.title}}</p>-->
-                </div>
-                <div class="bottom-article-info">
-                    <p>{{bA.title}}</p>
-                    <p>by 
-                        <a [routerLink]="['profile', bA.authorId]">{{bA.username}}</a>, 
-                        <em>{{transformDate(bA.createdDate)}}</em>
+        <div class="other-articles">
+            <h3 [routerLink]="['category', c]">Other articles from the category '{{c}}':</h3>
+            <div *ngFor="let oA of otherArticles[i], let j = index">
+                <div class="articlelink">
+                    <p>
+                        <a [routerLink]="oA.id" class="otherarticlelink">{{oA.title}}</a>
+                        <span class="username-date">
+                            <a [routerLink]="['profile', oA.authorId]" class="authorlink">{{oA.username}}</a>
+                            <em> - {{transformDate(oA.createdDate)}}</em>
+                        </span>
                     </p>
+                    <hr class="article-divide" *ngIf="j < otherArticles[i].length - 1" />
                 </div>
             </div>
         </div>
     </div>
-    <div class="other-articles">
-        <h3 [routerLink]="['category', c]">Other articles from the category '{{c}}':</h3>
-        <div *ngFor="let oA of otherArticles[i], let j = index">
-            <div class="articlelink">
-                <p>
-                    <a [routerLink]="oA.id" class="otherarticlelink">{{oA.title}}</a>
-                    <span class="username-date">
-                        <a [routerLink]="['profile', oA.authorId]" class="authorlink">{{oA.username}}</a>
-                        <em> - {{transformDate(oA.createdDate)}}</em>
-                    </span>
-                </p>
-                <hr class="article-divide" *ngIf="j < otherArticles[i].length - 1" />
-            </div>
-        </div>
+    <div *ngIf="!mainArticle[i] || sideArticles[i].length == 0 || bottomArticles[i].length == 0">
+        <h4>Loading...</h4>
     </div>
     <hr class="section-divide" *ngIf="i < categories.length - 1" />
 </section>
