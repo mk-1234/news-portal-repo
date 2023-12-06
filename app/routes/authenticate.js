@@ -9,6 +9,7 @@ module.exports = (express, pool, jwt, secret, bcrypt) => {
       conn.query(qr, req.body.username, async (err, result) => {
         if (err) throw err;
         if (result.length > 0) {
+          conn.release();
           res.send({
             success: false,
             message: 'username already exists'
@@ -46,6 +47,7 @@ module.exports = (express, pool, jwt, secret, bcrypt) => {
       let qr = 'SELECT * FROM users WHERE username = ?';
       conn.query(qr, req.body.username, async (err, result) => {
         if (err) throw err;
+        conn.release();
         if (result.length > 0) {
           let data = {
             id: result[0].id,
