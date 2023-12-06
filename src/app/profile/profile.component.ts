@@ -134,6 +134,8 @@ export class ProfileComponent implements OnInit {
         this.maySeeComments = false;
         this.tabs[2][1] = true;
       }
+    } else {
+      this.tabs[2][1] = true;
     }
   }
 
