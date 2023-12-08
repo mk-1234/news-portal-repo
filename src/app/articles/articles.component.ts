@@ -196,7 +196,7 @@ export class ArticlesComponent implements OnInit {
 
   setImageStyle(img: string): any {
     return {
-      'background-image': `url(../../assets/${img})`
+      'background-image': `url(../../assets/${img}.png)`
     };
   }
 

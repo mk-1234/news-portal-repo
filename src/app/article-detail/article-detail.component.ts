@@ -27,6 +27,8 @@ export class ArticleDetailComponent implements OnInit {
 
   paramId: number = 0;
   article: any;
+  imageNames: any;
+
   user: any;
   writerLoggedIn: boolean = false;
   mayWrite: boolean = false;
@@ -93,6 +95,7 @@ export class ArticleDetailComponent implements OnInit {
       this.articleForm.controls['category'].setValue(
         this.app.writeCategory ? this.app.writeCategory : 'Domestic'
       );
+      this.fetchImageNames();
     } else {
       this.api.getArticle(this.paramId).subscribe(res => {
         console.log('res:', res);
@@ -108,6 +111,20 @@ export class ArticleDetailComponent implements OnInit {
         this.app.logout();
       });
     }
+  }
+
+  fetchImageNames(): void {
+    this.api.getImageNames().subscribe(res => {
+      console.log('res:', res);
+      console.log('res message:', res.message);
+      if (res.success) {
+        this.imageNames = res.data;
+      }
+    }, err => {
+      console.log('error in get image names:', err);
+      console.log('error message:', err.error.message);
+      this.app.logout();
+    });
   }
 
   submitArticle() {
@@ -166,7 +183,7 @@ export class ArticleDetailComponent implements OnInit {
         category: this.articleForm.value.category,
         summary: this.articleForm.value.summary,
         article: this.articleForm.value.article,
-        image: this.articleForm.value.image ? this.articleForm.value.image : 'test_image.png',
+        image: this.articleForm.value.image ? this.articleForm.value.image : 'city_01',
         createdDate: this.getDate()
       };
     } else if (action == ArticleAction.EDIT) {
@@ -177,7 +194,7 @@ export class ArticleDetailComponent implements OnInit {
         category: this.articleForm.value.category,
         summary: this.articleForm.value.summary,
         article: this.articleForm.value.article,
-        image: this.articleForm.value.image ? this.articleForm.value.image : 'test_image.png',
+        image: this.articleForm.value.image ? this.articleForm.value.image : 'city_01',
         createdDate: this.article.createdDate ? this.article.createdDate : this.getDate()
       };
     }
@@ -197,6 +214,7 @@ export class ArticleDetailComponent implements OnInit {
     this.editingArticle = true;
     this.writingArticle = true;
     console.log('image value:', this.article.image);
+    this.fetchImageNames();
   }
 
   cancelEdit() {
@@ -260,10 +278,20 @@ export class ArticleDetailComponent implements OnInit {
     }
   }
 
-  setImageStyle(): any {
-    return {
-      'background-image': `url(../../assets/${this.article.image})`
-    };
+  setImageStyle(isArticle: boolean): any {
+    if (isArticle) {
+      return {
+        'background-image': `url(../../assets/${this.article.image}.png)`
+      };
+    } else {
+      //if (this.articleForm.value.image) {
+        return {
+          'background-image': `url(../../assets/${this.articleForm.value.image}.png)`
+        };
+      /*} else {
+        return;
+      }*/
+    }
   }
 
 }

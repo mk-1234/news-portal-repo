@@ -1,5 +1,5 @@
 <section *ngIf="article && !writingArticle">
-    <div class="article-image" [ngStyle]="setImageStyle()"></div>
+    <div class="article-image" [ngStyle]="setImageStyle(true)"></div>
     <div class="article-details">
         <h1>{{article.title}}</h1>
         <div class="added-info">
@@ -37,7 +37,7 @@
             </label>
         
             <label for="category">
-                <p>Select category</p>
+                <p>Category</p>
                 <select id="category" formControlName="category">
                     <option name="domestic" value="Domestic">Domestic</option>
                     <option name="international" value="International">International</option>
@@ -51,9 +51,12 @@
                     <span class="default-img-msg">-> Default image will be used if name is not entered.</span>
                 </p>
                 <!--<input type="file" id="image" formControlName="image" placeholder="Add image" />-->
-                <input type="text" id="image" formControlName="image" placeholder="Enter the name of the image" />
-                
+                <!--<input type="text" id="image" formControlName="image" placeholder="Enter the name of the image" />-->
+                <select *ngIf="imageNames && imageNames.length > 0" id="image" formControlName="image">
+                    <option *ngFor="let n of imageNames" value={{n.name}}>{{n.name}}</option>
+                </select>
             </label>
+            <div *ngIf="articleForm.value.image" class="preview-image" [ngStyle]="setImageStyle(false)"></div>
         
             <label for="summary">
                 <p>Summary</p>

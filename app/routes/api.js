@@ -501,6 +501,34 @@ module.exports = (express,pool, jwt, secret) => {
     });
   });
 
+
+  // --- COMMENTS ---
+
+  apiRouter.route('/images')
+
+  .get((req, res) => {
+    pool.getConnection((err, conn) => {
+      if (err) throw err;
+      let qr = 'SELECT * FROM images';
+      conn.query(qr, (err, result) => {
+        if (err) throw err;
+        conn.release();
+        if (result.length > 0) {
+          res.send({
+            success: true,
+            message: 'all images', 
+            data: result
+          });
+        } else {
+          res.send({
+            success: false,
+            message: 'no images found'
+          });
+        }
+      });
+    });
+  });
+
   // --- ME ---
 
   apiRouter.get('/me', (req, res) => {

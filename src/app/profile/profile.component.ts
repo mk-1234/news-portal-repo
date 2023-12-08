@@ -128,6 +128,7 @@ export class ProfileComponent implements OnInit {
         this.maySeeComments = true;
         this.onOwnProfile = this.loggedInUser.id == profileUserId;
         this.adminLoggedIn = this.loggedInUser.level == 0;
+        this.tabs[2][1] = false;
         if (this.adminLoggedIn) this.tabs[0][1] = true;
         else this.tabs[1][1] = true;
       } else {
@@ -390,7 +391,7 @@ export class ProfileComponent implements OnInit {
 
   setImageStyle(img: string): any {
     return {
-      'background-image': `url(../../assets/${img})`
+      'background-image': `url(../../assets/${img}.png)`
     };
   }
 

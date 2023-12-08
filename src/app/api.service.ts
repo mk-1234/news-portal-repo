@@ -77,4 +77,10 @@ export class ApiService {
     return this.http.delete(`${this.apiUrl}/comments/${id}`);
   }
 
+  // --- IMAGES ---
+
+  getImageNames(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/images`);
+  }
+
 }
