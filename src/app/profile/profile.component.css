@@ -194,6 +194,7 @@
     border-radius: 10px 10px 0px 0px;
     box-sizing: border-box;
     z-index: 2;
+    cursor: pointer;
 }
 
 .article {

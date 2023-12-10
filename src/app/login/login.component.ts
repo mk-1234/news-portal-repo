@@ -37,7 +37,14 @@ export class LoginComponent {
           sessionStorage.removeItem('token');
           sessionStorage.setItem('token', res.token);
         }
-        this.router.navigate(['/']);
+        let articleId = this.app.getLoginFromArticle();
+        console.log('articleId in login:', articleId);
+        this.app.setLoginFromArticle(-1);
+        if (articleId < 0) {
+          this.router.navigate(['/']);
+        } else {
+          this.router.navigate([articleId]);
+        }
       } else {
         console.log('login failed');
       }

@@ -1,6 +1,9 @@
 <section>
     <div *ngIf="!userLoggedIn && !inProfile">
-        <p class="smaller-font">>><span class="link-style" [routerLink]="['../login']">Log in</span> to write a comment</p>
+        <p class="smaller-font">>>
+            <!--<span class="link-style" [routerLink]="['../login']">Log in</span> to write a comment-->
+            <span class="link-style" (click)="toLogin()">Log in</span> to write a comment
+        </p>
     </div>
     <div *ngIf="userLoggedIn && !inProfile">
         <p *ngIf="!writingComment && !editingComment && user.level < 3" class="smaller-font link-style" (click)="writingComment=true">

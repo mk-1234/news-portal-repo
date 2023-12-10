@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { AppComponent } from '../app.component';
 import { ApiService } from '../api.service';
 import { formatDate } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-comments',
@@ -28,7 +28,12 @@ export class CommentsComponent implements OnInit, OnChanges {
   userIdHelp: number = -1;
   mayEdit: boolean = false;
 
-  constructor(private api: ApiService, private app: AppComponent, private route: ActivatedRoute) { }
+  constructor(
+    private api: ApiService, 
+    private app: AppComponent, 
+    private route: ActivatedRoute, 
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     if (this.inProfile) {
@@ -93,6 +98,13 @@ export class CommentsComponent implements OnInit, OnChanges {
     } else {
       this.userLoggedIn = false;
     }
+  }
+
+  toLogin(): void {
+    console.log('articleId before:', this.app.getLoginFromArticle());
+    this.app.setLoginFromArticle(this.articleId);
+    console.log('articleId after:', this.app.getLoginFromArticle());
+    this.router.navigate(['../login']);
   }
 
   /*refreshComments(): void {

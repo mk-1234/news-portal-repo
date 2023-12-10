@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   //token: string = '';
 
   writeCategory: string = '';
+  loginFromArticle: number = -1;
 
   constructor(private auth: AuthService, private router: Router) { }
 
@@ -40,6 +41,14 @@ export class AppComponent implements OnInit {
 
   getUser(): any {
     return this.user;
+  }
+
+  getLoginFromArticle(): number {
+    return this.loginFromArticle;
+  }
+
+  setLoginFromArticle(articleId: number): void {
+    this.loginFromArticle = articleId;
   }
 
   /*getToken(): string {
