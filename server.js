@@ -43,5 +43,7 @@ app.get('*', (req, res) => {
 
 app.listen(config.port, () => {
   console.log("Running on port --> " + config.port);
-  console.log('jaws maria url -> ' + process.env.JAWSDB_MARIA_URL)
+  console.log('jaws maria url -> ' + process.env.JAWSDB_MARIA_URL);
+  console.log('pool -> ' + config.pool);
+  console.log('secret string -> ' + config.secret);
 });
