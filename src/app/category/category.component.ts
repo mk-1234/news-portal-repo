@@ -26,15 +26,12 @@ export class CategoryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('category param:', this.route.snapshot.params['category']);
     this.route.params.subscribe((params: Params) => {
       this.category = params['category'];
-      console.log('category param:', this.route.snapshot.params['category']);
       this.refreshArticles();
       this.checkUser();
     });
     this.interval = setInterval(() => {
-      console.log('checking user...');
       if (!sessionStorage.getItem('token')) {
         console.log('no token, clearing interval');
         clearInterval(this.interval);
@@ -64,13 +61,11 @@ export class CategoryComponent implements OnInit {
 
   refreshArticles(): void {
     this.api.getArticlesByCategory(this.route.snapshot.params['category']).subscribe(res => {
-      console.log('get articles by category res:', res);
       if (res.data.length > 0) {
         this.articles = res.data;
       }
     }, err => {
       console.log('error in get articles by category:', err);
-      console.log('error message:', err.error.message);
       this.app.logout();
     });
   }

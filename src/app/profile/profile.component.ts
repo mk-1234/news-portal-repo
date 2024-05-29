@@ -61,44 +61,34 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     let userId = this.route.snapshot.params['id'];
     this.auth.getUser(userId).subscribe(res => {
-      console.log('get user res', res);
-      console.log('res message:', res.message);
       if (res.success) {
         this.profileUser = res.data[0];
       }
     }, err => {
       console.log('error in get user:', err);
-      console.log('error message:', err.error.message);
       this.app.logout();
     });
 
     this.api.getArticlesByAuthor(userId).subscribe(res => {
-      console.log('get articles by author res', res);
-      console.log('res message:', res.message);
       if (res.success) {
         this.articles = res.data;
       }
     }, err => {
       console.log('error in get articles by author:', err);
-      console.log('error message:', err.error.message);
       this.app.logout();
     });
     
     this.auth.getAllUsers().subscribe(res => {
-      console.log('get all users res', res);
-      console.log('res message:', res.message);
       if (res.success) {
         this.users = res.data;
       }
     }, err => {
       console.log('error in get all users:', err);
-      console.log('error message:', err.error.message);
       this.app.logout();
     });
 
     this.checkUser(userId);
     this.interval = setInterval(() => {
-      console.log('checking user...');
       if (!sessionStorage.getItem('token')) {
         console.log('no token, clearing interval');
         clearInterval(this.interval);
@@ -114,7 +104,6 @@ export class ProfileComponent implements OnInit {
   checkUser(profileUserId: number): void {
     if (this.app.getUser()) {
       this.loggedInUser = this.app.getUser();
-      console.log('user:', this.loggedInUser, '- app user:', this.app.getUser());
       if (this.loggedInUser.id == profileUserId || this.loggedInUser.level == 0) {
         this.maySeeComments = true;
         this.onOwnProfile = this.loggedInUser.id == profileUserId;
@@ -141,7 +130,6 @@ export class ProfileComponent implements OnInit {
     for (let i = 0; i < this.tabs.length; i++) {
       if (i == nmb) {
         this.tabs[i][1] = true;
-        console.log('tab', nmb, 'activated');
       } else {
         this.tabs[i][1] = false;
       }
@@ -221,15 +209,12 @@ export class ProfileComponent implements OnInit {
       level: u.level - 1
     };
     this.auth.editUser(tempUser).subscribe(res => {
-      console.log('edit user res:', res);
-      console.log('res message:', res.message);
       if (res.success) {
         u.level -= 1;
         console.log('level increased to', u.level);
       }
     }, err => {
       console.log('error in edit user level:', err);
-      console.log('error message:', err.error.message);
       this.app.logout();
     });
   }
@@ -248,21 +233,17 @@ export class ProfileComponent implements OnInit {
       level: u.level + 1
     };
     this.auth.editUser(tempUser).subscribe(res => {
-      console.log('edit user res:', res);
-      console.log('res message:', res.message);
       if (res.success) {
         u.level += 1;
         console.log('level decreased to', u.level);
       }
     }, err => {
       console.log('error in edit user level:', err);
-      console.log('error message:', err.error.message);
       this.app.logout();
     });
   }
 
   banUser(u: any): void {
-    console.log('banning user ' + u.username);
     let tempUser = {
       id: u.id,
       username: u.username,
@@ -272,15 +253,12 @@ export class ProfileComponent implements OnInit {
       level: 3
     };
     this.auth.editUser(tempUser).subscribe(res => {
-      console.log('edit banned user res:', res);
-      console.log('res message:', res.message);
       if (res.success) {
         u.level = 3;
         console.log('user banned, level set to', u.level);
       }
     }, err => {
       console.log('error in ban user:', err);
-      console.log('error message:', err.error.message);
       this.app.logout();
     });
   }
@@ -300,9 +278,7 @@ export class ProfileComponent implements OnInit {
           lastName: this.updateForm.value['last-name'],
           email: this.updateForm.value['email']
         };
-        console.log('updated user:', updatedUser);
         this.auth.editUser(updatedUser).subscribe(res => {
-          console.log('update user res message:', res);
           this.errorMsg = res.message;
           if (res.success) {
             this.profileUser.username = updatedUser.username;
@@ -312,13 +288,11 @@ export class ProfileComponent implements OnInit {
             this.editingUser = false;
             this.updateForm.reset();
             this.errorMsg = '';
-            console.log('user updated');
           } else {
             console.log('user not updated');
           }
         }, err => {
           console.log('error in update user:', err);
-          console.log('error message:', err.error.message);
           this.app.logout();
         });
       }
@@ -327,8 +301,6 @@ export class ProfileComponent implements OnInit {
 
   deleteUser(id: number): void {
     this.auth.deleteUser(id).subscribe(res => {
-      console.log('delete other user res:', res);
-      console.log('res message:', res.message);
       if (res.success) {
         let tempUsers = this.users.filter((u: any) => {
           return u.id != id;
@@ -337,33 +309,27 @@ export class ProfileComponent implements OnInit {
       }
     }, err => {
       console.log('error in delete user:', err);
-      console.log('error message:', err.error.message);
       this.app.logout();
     });
   }
 
   selfDeleteUser(): void {
     this.auth.deleteUser(this.profileUser.id).subscribe(res => {
-      console.log('delete other user res:', res);
-      console.log('res message:', res.message);
       if (res.success) {
         this.app.logout();
       }
     }, err => {
       console.log('error in delete user self:', err);
-      console.log('error message:', err.error.message);
       this.app.logout();
     });
   }
 
   startEdit(): void {
     if (!this.profileUser) return;
-    console.log('updateForm before:', this.updateForm.value);
     this.updateForm.controls['username'].setValue(this.profileUser.username);
     this.updateForm.controls['first-name'].setValue(this.profileUser.firstName);
     this.updateForm.controls['last-name'].setValue(this.profileUser.lastName);
     this.updateForm.controls['email'].setValue(this.profileUser.email);
-    console.log('updateForm after:', this.updateForm.value);
     this.editingUser = true;
   }
 

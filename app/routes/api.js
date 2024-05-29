@@ -65,7 +65,6 @@ module.exports = (express,pool, jwt, secret) => {
       conn.query(qr, req.body, (err, result) => {
         if (err) throw err;
         conn.release();
-        console.log('insert article result:', result);
         if (result.affectedRows > 0) {
           res.send({
             success: true,
@@ -93,7 +92,6 @@ module.exports = (express,pool, jwt, secret) => {
       conn.query(qr, values, (err, result) => {
         if (err) throw err;
         conn.release();
-        console.log('update article result:', result);
         if (result.affectedRows > 0) {
           res.send({
             success: true, 
@@ -217,7 +215,6 @@ module.exports = (express,pool, jwt, secret) => {
       conn.query(qr, req.params.id, (err, result) => {
         if (err) throw err;
         conn.release();
-        console.log('delete article result:', result);
         if (result.affectedRows > 0) {
           res.send({
             success: true,
@@ -293,7 +290,6 @@ module.exports = (express,pool, jwt, secret) => {
       conn.query(qr, req.params.id, (err, result) => {
         if (err) throw err;
         conn.release();
-        console.log('delete user result:', result);
         if (result.affectedRows > 0) {
           res.send({
             success: true,
@@ -345,7 +341,6 @@ module.exports = (express,pool, jwt, secret) => {
       conn.query(qr, req.body, (err, result) => {
         if (err) throw err;
         conn.release();
-        console.log('insert comment result:', result);
         if (result.affectedRows > 0) {
           res.send({
             success: true,
@@ -370,7 +365,6 @@ module.exports = (express,pool, jwt, secret) => {
       conn.query(qr, values, (err, result) => {
         if (err) throw err;
         conn.release();
-        console.log('update comment result:', result);
         if (result.affectedRows > 0) {
           res.send({
             success: true, 
@@ -446,7 +440,6 @@ module.exports = (express,pool, jwt, secret) => {
       conn.query(qr, req.params.id, (err, result) => {
         if (err) throw err;
         conn.release();
-        console.log('delete comment result:', result);
         if (result.affectedRows > 0) {
           res.send({
             success: true,

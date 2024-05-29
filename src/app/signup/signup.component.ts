@@ -43,19 +43,15 @@ export class SignupComponent implements OnInit {
           email: this.signupForm.value['email'],
           level: 2
         };
-        console.log('new user:', newUser);
         this.auth.addUser(newUser).subscribe(res => {
-          console.log('add user res message:', res.message);
           this.errorMsg = res.message;
           if (res.success) {
-            console.log('user added:', res.id);
             this.app.refreshPage('login');
           } else {
             console.log('user not added');
           }
         }, err => {
           console.log('error in add user:', err);
-          console.log('error message:', err.error.message);
           this.app.logout();
         });
       }

@@ -18,6 +18,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/dist/news-portal'));
+//app.use(express.static(__dirname + '/src'));
 
 app.use(cors());
 app.use(helmet());
@@ -39,11 +40,9 @@ app.use('/api', apiRouter);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/dist/news-portal/index.html'));
+  //res.sendFile(path.join(__dirname + '/src/index.html'));
 });
 
 app.listen(config.port, () => {
   console.log("Running on port --> " + config.port);
-  console.log('jaws maria url -> ' + process.env.JAWSDB_MARIA_URL);
-  console.log('pool -> ' + config.pool);
-  console.log('secret string -> ' + config.secret);
 });

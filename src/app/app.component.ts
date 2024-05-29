@@ -22,7 +22,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.auth.getUserInformation().subscribe(res => {
-      console.log('get user info res:', res);
       if (res.success) {
         this.user = res.user;
         this.loggedIn = true;

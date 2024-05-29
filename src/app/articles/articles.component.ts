@@ -32,7 +32,6 @@ export class ArticlesComponent implements OnInit {
       if (res.success) {
         this.articles[0] = res.data;
         if (this.articles[0].length > 0) {
-          console.log('domestic articles length is > 0');
           this.mainArticle[0] = this.articles[0][0];
           for (let i = 0; i < this.articles[0].length; i++) {
             if (i < 3) {
@@ -47,7 +46,6 @@ export class ArticlesComponent implements OnInit {
       }
     }, err => {
       console.log('error in get articles by category and limit:', err);
-      console.log('error message:', err.error.message);
       this.app.logout();
     });
 
@@ -55,7 +53,6 @@ export class ArticlesComponent implements OnInit {
       if (res.success) {
         this.articles[1] = res.data;
         if (this.articles[1].length > 0) {
-          console.log('international articles length is > 0');
           this.mainArticle[1] = this.articles[1][0];
           for (let i = 0; i < this.articles[1].length; i++) {
             if (i < 3) {
@@ -70,7 +67,6 @@ export class ArticlesComponent implements OnInit {
       }
     }, err => {
       console.log('error in get articles by category and limit:', err);
-      console.log('error message:', err.error.message);
       this.app.logout();
     });
 
@@ -78,7 +74,6 @@ export class ArticlesComponent implements OnInit {
       if (res.success) {
         this.articles[2] = res.data;
         if (this.articles[2].length > 0) {
-          console.log('entertainment articles length is > 0');
           this.mainArticle[2] = this.articles[2][0];
           for (let i = 0; i < this.articles[2].length; i++) {
             if (i < 3) {
@@ -93,7 +88,6 @@ export class ArticlesComponent implements OnInit {
       }
     }, err => {
       console.log('error in get articles by category and limit:', err);
-      console.log('error message:', err.error.message);
       this.app.logout();
     });
 
@@ -101,7 +95,6 @@ export class ArticlesComponent implements OnInit {
       if (res.success) {
         this.articles[3] = res.data;
         if (this.articles[3].length > 0) {
-          console.log('sport articles length is > 0');
           this.mainArticle[3] = this.articles[3][0];
           for (let i = 0; i < this.articles[3].length; i++) {
             if (i < 3) {
@@ -116,14 +109,12 @@ export class ArticlesComponent implements OnInit {
       }
     }, err => {
       console.log('error in get articles by category and limit:', err);
-      console.log('error message:', err.error.message);
       this.app.logout();
     });
 
     this.checkUser();
 
     this.interval = setInterval(() => {
-      console.log('checking user...');
       if (!sessionStorage.getItem('token')) {
         console.log('no token, clearing interval');
         clearInterval(this.interval);
@@ -152,11 +143,9 @@ export class ArticlesComponent implements OnInit {
   }
 
   setArticleFocus(id: number, index: number) {
-    console.log('focused on', id, 'index', index);
     this.mainArticle[index] = this.articles[index].find((e: any) => {
       if (e.id == id) return e;
     });
-    console.log('main article', index, ':', this.mainArticle[index]);
   }
 
   writeArticle(category: string): void {

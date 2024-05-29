@@ -48,16 +48,12 @@ export class ArticleDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.paramId = this.route.snapshot.params['articleDetail'];
-    console.log('snapshot:', this.route.snapshot);
-    console.log('param articledetail from snapshot:', this.route.snapshot.params['articleDetail']);
     this.route.params.subscribe((params: Params) => {
       this.paramId = params['articleDetail'];
-      console.log('article id param:', this.paramId);
       this.refreshArticle();
       this.checkUser();
     });
     this.interval = setInterval(() => {
-      console.log('checking user...');
       if (!sessionStorage.getItem('token')) {
         console.log('no token, clearing interval');
         clearInterval(this.interval);
@@ -73,7 +69,6 @@ export class ArticleDetailComponent implements OnInit {
   checkUser(): void {
     if (this.app.getUser()) {
       this.user = this.app.getUser();
-      console.log('user:', this.user, '- app user:', this.app.getUser());
       if (this.article) {
         this.writerLoggedIn = this.user.id == this.article.authorId ? true : false;
       }
@@ -91,15 +86,12 @@ export class ArticleDetailComponent implements OnInit {
     if (this.paramId == -1) {
       this.editingArticle = false;
       this.writingArticle = true;
-      console.log('category on refresh:', this.app.writeCategory);
       this.articleForm.controls['category'].setValue(
         this.app.writeCategory ? this.app.writeCategory : 'Domestic'
       );
       this.fetchImageNames();
     } else {
       this.api.getArticle(this.paramId).subscribe(res => {
-        console.log('res:', res);
-        console.log('res message', res.message);
         this.writingArticle = false;
         this.editingArticle = false;
         if (res.success) {
@@ -107,7 +99,6 @@ export class ArticleDetailComponent implements OnInit {
         }
       }, err => {
         console.log('error in get article:', err);
-        console.log('error message:', err.error.message);
         this.app.logout();
       });
     }
@@ -115,62 +106,45 @@ export class ArticleDetailComponent implements OnInit {
 
   fetchImageNames(): void {
     this.api.getImageNames().subscribe(res => {
-      console.log('res:', res);
-      console.log('res message:', res.message);
       if (res.success) {
         this.imageNames = res.data;
       }
     }, err => {
       console.log('error in get image names:', err);
-      console.log('error message:', err.error.message);
       this.app.logout();
     });
   }
 
   submitArticle() {
-    console.log('article form val:', this.articleForm.value);
     if (this.editingArticle) {
       let a = this.populateArticleFields(ArticleAction.EDIT);
-      console.log('article after populate edit:', a);
       this.api.editArticle(a).subscribe(res => {
-        console.log('edit article res:', res);
-        console.log('message:', res.message);
         this.writingArticle = false;
         this.editingArticle = false;
         if (res.success) {
-          console.log('affected articles:', res.affected);
           a['username'] = this.article.username;
           this.article = a;
-          console.log('---- after edit ----\na:', a);
-          console.log('article:', this.article, '\n----------');
         }
       }, err => {
         console.log('error in edit article:', err);
-        console.log('error message:', err.error.message);
         this.app.logout();
       });
     } else {
       let a = this.populateArticleFields(ArticleAction.WRITE);
-      console.log('article after populate write:', a);
       this.api.addArticle(a).subscribe(res => {
-        console.log('add article res:', res);
-        console.log('message:', res.message);
         this.writingArticle = false;
         this.editingArticle = false;
         if (res.success) {
-          console.log('added article id:', res.id);
           this.app.refreshPage(`../${res.id}`);
         }
       }, err => {
         console.log('error in add article:', err);
-        console.log('error message:', err.error.message);
         this.app.logout();
       });
     }
   }
 
   populateArticleFields(action: ArticleAction): any {
-    console.log('action:', action);
     if (action == ArticleAction.WRITE) {
       return {
         authorId: this.user.id,
@@ -207,12 +181,10 @@ export class ArticleDetailComponent implements OnInit {
     this.articleForm.controls['article'].setValue(this.article.article);
     this.editingArticle = true;
     this.writingArticle = true;
-    console.log('image value:', this.article.image);
     this.fetchImageNames();
   }
 
   cancelEdit() {
-    console.log('text before cancel:', this.articleForm.value.article);
     if (this.editingArticle) {
       this.editingArticle = false;
       this.writingArticle = false;
@@ -224,20 +196,17 @@ export class ArticleDetailComponent implements OnInit {
   deleteArticle(id: number): void {
     this.api.deleteArticle(id).subscribe(res => {
       if (res.success) {
-        console.log('delete success message:', res.message);
         this.router.navigate(['../']);
       } else {
         console.log('delete fail message:', res.message);
       }
     }, err => {
       console.log('error in delete article:', err);
-      console.log('error message:', err.error.message);
       this.app.logout();
     });
   }
 
   textHighlight(ev: any) {
-    console.log('in text select!,', ev);
     this.startIndex = ev.target.selectionStart;
     this.endIndex = ev.target.selectionEnd;
     console.log(ev.target.value.substr(this.startIndex, this.endIndex - this.startIndex));
@@ -254,7 +223,6 @@ export class ArticleDetailComponent implements OnInit {
       textMiddle = `<${elType}>` + currentText?.substring(this.startIndex, this.endIndex) + `</${elType}>`;
     }
     let textAfterEndIndex = currentText?.substring(this.endIndex);
-    console.log('start:', textBeforeStartIndex, '\nmiddle:', textMiddle, '\nend:', textAfterEndIndex);
     this.articleForm.controls['article'].setValue(textBeforeStartIndex + textMiddle + textAfterEndIndex);
     this.startIndex = -1;
     this.endIndex = -1;

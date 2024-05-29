@@ -22,23 +22,17 @@ export class LoginComponent {
 
   onLogin() {
     this.auth.login(this.loginForm.value).subscribe(res => {
-      console.log('res:', res);
-      console.log('login res message:', res.message);
       this.errorMsg = res.message;
       if (res.success) {
-        console.log('logged in');
         if (res.result) {
-          console.log('res result:', res.result);
           this.app.user = res.result;
           this.app.loggedIn = true;
         }
         if (res.token) {
-          console.log('token:', res.token);
           sessionStorage.removeItem('token');
           sessionStorage.setItem('token', res.token);
         }
         let articleId = this.app.getLoginFromArticle();
-        console.log('articleId in login:', articleId);
         this.app.setLoginFromArticle(-1);
         if (articleId < 0) {
           this.router.navigate(['/']);
@@ -50,7 +44,6 @@ export class LoginComponent {
       }
     }, err => {
       console.log('error in login:', err);
-      console.log('error message:', err.error.message);
       this.app.logout();
     });
   }

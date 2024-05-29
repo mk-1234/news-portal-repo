@@ -37,38 +37,27 @@ export class CommentsComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     if (this.inProfile) {
       let userId = this.route.snapshot.params['id'];
-      console.log('profile user id:', userId);
-      console.log('user:', this.user);
       this.api.getCommentsByUser(userId).subscribe(res => {
-        console.log('get all comments by user res:', res);
-        console.log('res message:', res.message);
         if (res.success) {
           this.comments = res.data;
         }
       }, err => {
         console.log('error in get comments by user:', err);
-        console.log('error message:', err.error.message);
         this.app.logout();
       });
     } else {
-      console.log('article id:', this.articleId);
-      console.log('user:', this.user);
       this.api.getCommentsByArticle(this.articleId).subscribe(res => {
-        console.log('get all comments by article res:', res);
-        console.log('res message:', res.message);
         if (res.success) {
           this.comments = res.data;
         }
       }, err => {
         console.log('error in get comments by article:', err);
-        console.log('error message:', err.error.message);
         this.app.logout();
       });
     }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes:', changes);
     if (changes['user'].currentValue) {
       let u = changes['user'].currentValue;
       if (u && u.id) {
@@ -83,9 +72,7 @@ export class CommentsComponent implements OnInit, OnChanges {
   }
 
   toLogin(): void {
-    console.log('articleId before:', this.app.getLoginFromArticle());
     this.app.setLoginFromArticle(this.articleId);
-    console.log('articleId after:', this.app.getLoginFromArticle());
     this.router.navigate(['../login']);
   }
 
@@ -97,15 +84,11 @@ export class CommentsComponent implements OnInit, OnChanges {
       createdDate: this.getDate()
     };
     this.api.addComment(c).subscribe(res => {
-      console.log('add comment res:', res);
-      console.log('message:', res.message);
       if (res.success) {
-        console.log('added comment id:', res.id);
         this.app.refreshPage(`../${this.articleId}`);
       }
     }, err => {
       console.log('error in add comment:', err);
-      console.log('error message:', err.error.message);
       this.app.logout();
     });
     this.endWriting();
@@ -142,10 +125,7 @@ export class CommentsComponent implements OnInit, OnChanges {
     }
     this.cancelEdit();
     this.api.editComment(c).subscribe(res => {
-      console.log('edit comment res:', res);
-      console.log('message:', res.message);
       if (res.success) {
-        console.log('affected comments:', res.affected);
         if (!this.inProfile) {
           this.app.refreshPage(`../${this.articleId}`);
         } else {
@@ -156,7 +136,6 @@ export class CommentsComponent implements OnInit, OnChanges {
       }
     }, err => {
       console.log('error in edit comment:', err);
-      console.log('error message:', err.error.message);
       this.app.logout();
     });
   }
@@ -170,7 +149,6 @@ export class CommentsComponent implements OnInit, OnChanges {
   delete(id: number) {
     this.api.deleteComment(id).subscribe(res => {
       if (res.success) {
-        console.log('delete comment success message:', res.message);
         if (!this.inProfile) {
           this.app.refreshPage(`../${this.articleId}`);
         } else {
@@ -181,7 +159,6 @@ export class CommentsComponent implements OnInit, OnChanges {
       }
     }, err => {
       console.log('error in delete comment:', err);
-      console.log('error message:', err.error.message);
       this.app.logout();
     });
   }
