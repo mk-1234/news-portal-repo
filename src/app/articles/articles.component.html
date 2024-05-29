@@ -1,10 +1,5 @@
 <section *ngFor="let c of categories, let i = index">
-    <h2 class="category-name" [routerLink]="['category', c]">{{c}}
-        <!--<a [routerLink]="['category', c]">{{c}}</a>-->
-        <!--<span *ngIf="loggedIn && mayWrite" class="write-article"> >
-            <a (click)="writeArticle(c)">Write an article</a>
-        </span>-->
-    </h2>
+    <h2 class="category-name" [routerLink]="['category', c]">{{c}}</h2>
     <p *ngIf="loggedIn && mayWrite" class="write-article"> >
         <a (click)="writeArticle(c)">Write an article</a>
     </p>
@@ -39,9 +34,7 @@
         <div class="flex-container-bottom">
             <div *ngFor="let bA of bottomArticles[i]" class="bottom-article" [routerLink]="bA.id" (mouseenter)="setArticleFocus(bA.id, i)">
                 <div class="article">
-                    <div class="imageclass" [ngStyle]="setImageStyle(bA.image)">
-                        <!--<p class="sidetitle">{{bA.title}}</p>-->
-                    </div>
+                    <div class="imageclass" [ngStyle]="setImageStyle(bA.image)"></div>
                     <div class="bottom-article-info">
                         <p>{{bA.title}}</p>
                         <p>by 

@@ -33,12 +33,6 @@ export class CategoryComponent implements OnInit {
       this.refreshArticles();
       this.checkUser();
     });
-    /*if (this.app.getUser()) {
-      this.loggedIn = this.app.loggedIn;
-      this.mayWrite = this.app.getUser().level < 2 ? true : false;
-    } else {
-      console.log('could not get user from category');
-    }*/
     this.interval = setInterval(() => {
       console.log('checking user...');
       if (!sessionStorage.getItem('token')) {
@@ -55,11 +49,6 @@ export class CategoryComponent implements OnInit {
 
   checkUser(): void {
     if (this.app.getUser()) {
-      /*this.user = this.app.getUser();
-      console.log('user:', this.user, '- app user:', this.app.getUser());
-      if (this.article) {
-        this.writerLoggedIn = this.user.id == this.article.authorId ? true : false;
-      }*/
       this.loggedIn = this.app.loggedIn;
       this.mayWrite = this.app.getUser().level < 2 ? true : false;
     } else {
@@ -88,7 +77,6 @@ export class CategoryComponent implements OnInit {
 
   writeArticle(): void {
     this.app.writeCategory = this.category;
-    //console.log('category:', this.category, '- from app:', this.app.writeCategory);
     this.router.navigate(['../../-1']);
   }
 

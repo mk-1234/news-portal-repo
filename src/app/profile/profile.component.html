@@ -5,18 +5,9 @@
             <span class="large-tab" (click)="selectTab(i)" [ngStyle]="setActiveTabStyle(0, t[1], i)">{{t[0]}}</span>
             <span class="material-symbols-outlined mobile-tab" (click)="selectTab(i)" [ngStyle]="setActiveTabStyle(1, t[1], i)">{{icons[i]}}</span>
         </p>
-        <!--<span class="admin-settings">Admin settings</span>
-        <span class="user-settings">User settings</span>
-        <span class="articles-tab">Articles</span>
-        <span class="comments-tab">Comments</span>-->
     </div>
-    <!--<hr />-->
     <div *ngIf="tabs[0][1] && adminLoggedIn && onOwnProfile" class="admin-settings-own">
         <h3>Administrator Settings</h3>
-        <!--<span>Help:</span>
-        <span>level 0: Administrator</span>
-        <span>level 1: Writer</span>
-        <span>level 2: Commenter</span>-->
         <div class="settings-cont">
             <div *ngFor="let u of users; let i = index">
                 <p><strong class="link-style" (click)="goToUserProfile(u.id)">{{u.username}}</strong>, {{getRole(u.level)}} (level: {{u.level}})</p>
@@ -33,17 +24,13 @@
             </div>
         </div>
     </div>
-    <!--<hr />-->
 
     <div *ngIf="tabs[0][1] && adminLoggedIn && !onOwnProfile" class="admin-settings-other">
         <h3>Administrator Settings</h3>
         <div class="settings-cont">
-            <!--<p>{{profileUser.username}}, level: {{profileUser.level}}</p>-->
             <p>{{profileUser.username}}, {{getRole(profileUser.level)}} (level: {{profileUser.level}})</p>
             <p *ngIf="profileUser.level == 3" class="ban-msg">User is banned!</p>
             <div class="buttons-cont">
-                <!--<button (click)="increaseLevel(profileUser)" class="modBtn"> < </button>
-                <button (click)="decreaseLevel(profileUser)" class="modBtn"> > </button>-->
                 <button *ngIf="profileUser.level > 0" (click)="increaseLevel(profileUser)" class="mod-button-valid">&#60;</button>
                 <button *ngIf="profileUser.level <= 0" (click)="increaseLevel(profileUser)" class="mod-button-invalid">&#60;</button>
                 <button *ngIf="profileUser.level < 2" (click)="decreaseLevel(profileUser)" class="mod-button-valid">&#62;</button>
@@ -52,13 +39,11 @@
                 <button *ngIf="profileUser.level > 0" (click)="deleteUser(profileUser.id)" class="delBtn">Delete user</button>
             </div>
         </div>
-        <!--<hr />-->
     </div>
 
     <div *ngIf="tabs[1][1] && onOwnProfile" class="user-settings">
         <h3>User Settings</h3>
         <div *ngIf="!editingUser" class="settings-cont">
-            <!--<p>id: {{profileUser.id}}, <br />-->
             <p>username: {{profileUser.username}}, <br />
                 firstname: {{profileUser.firstName}}, <br />
                 lastname: {{profileUser.lastName}}, <br />
@@ -128,25 +113,10 @@
                     <button (click)="cancelEdit()" class="delBtn" type="button">Cancel</button>
                 </div>
             </form>
-
-
-            <!--<button (click)="updateUser()" class="mod-button-valid">Update</button>
-            <button class="mod-button-invalid">Update</button>
-            <button (click)="editingUser = false" class="delBtn" type="button">Cancel</button>-->
         </div>
-        <!--<hr />-->
     </div>
 
     <div *ngIf="tabs[2][1]" class="articles-tab">
-        <!--<h3>{{profileUser.username}} articles:</h3>
-        <div *ngFor="let a of articles" class="article">
-            <div class="article-image" [routerLink]="['../../', a.id]"></div>
-            <div>
-                <h3 class="article-title" [routerLink]="['../../', a.id]">{{a.title}}</h3>
-                <p class="article-category">{{a.category}}, {{transformDate(a.createdDate)}}</p>
-                <p class="article-summary">{{a.summary}}</p>
-            </div>
-        </div>-->
         <h3>Articles</h3>
         <div *ngIf="articles && articles.length > 0">
             <div *ngFor="let a of articles" class="article">
@@ -164,11 +134,9 @@
         <div *ngIf="!articles || articles.length == 0">
             <p class="no-articles-msg">There are no articles written.</p>
         </div>
-        <!--<hr />-->
     </div>
 
     <div *ngIf="tabs[3][1] && maySeeComments" class="comments-tab">
-        <!--<h3 *ngIf="maySeeComments">{{profileUser.username}} comments:</h3>-->
         <h3>Comments</h3>
 
         <app-comments *ngIf="maySeeComments" [user]="profileUser" [inProfile]="true"></app-comments>

@@ -1,25 +1,18 @@
 <section>
-    <!--<h2>Signup form</h2>-->
     <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
         <div class="fields">
             <div class="field-group">    
                 <label for="first-name">
                     <p>First Name</p>
                     <input type="text" id="first-name" formControlName="first-name" placeholder="Enter your first name" />
-                    <!--<span *ngIf="signupForm.controls['first-name'].status != 'VALID' && !signupForm.controls['first-name'].pristine">
-                    Please enter your first name!</span>-->
                 </label>
                 <label for="last-name">
                     <p>Last Name</p>
                     <input type="text" id="last-name" formControlName="last-name" placeholder="Enter your last name" />
-                    <!--<span *ngIf="signupForm.controls['last-name'].status != 'VALID' && !signupForm.controls['last-name'].pristine">
-                    Please enter your last name!</span>-->
                 </label>
                 <label for="email">
                     <p>E-mail</p>
                     <input type="email" id="email" formControlName="email" placeholder="example@example.com" />
-                    <!--<span *ngIf="signupForm.controls['email'].status != 'VALID' && !signupForm.controls['email'].pristine">
-                    Please enter your email in the correct format!</span>-->
                 </label>
             </div>
 
@@ -27,22 +20,14 @@
                 <label for="username">
                     <p>Username</p>
                     <input type="text" id="username" formControlName="username" placeholder="Enter your username" />
-                    <!--<span *ngIf="signupForm.controls['username'].status != 'VALID' && !signupForm.controls['username'].pristine">
-                    Please enter your username, it needs to be at least 3 letters long!</span>-->
                 </label>
                 <label for="password">
                     <p>Password</p>
                     <input type="password" id="password" formControlName="password" placeholder="Enter your password" />
-                    <!--<span *ngIf="signupForm.controls['password'].status != 'VALID' && !signupForm.controls['password'].pristine">
-                    Please enter your password!</span>
-                    <span *ngIf="wrongPass">Both passwords must be equal!</span>-->
                 </label>
                 <label for="repeat-password">
                     <p>Repeat Password</p>
                     <input type="password" id="repeat-password" formControlName="repeat-password" placeholder="Repeat password" />
-                    <!--<span *ngIf="signupForm.controls['repeat-password'].status != 'VALID' && !signupForm.controls['repeat-password'].pristine">
-                    Please repeat your password!</span>
-                    <span *ngIf="wrongPass">Both passwords must be equal!</span>-->
                 </label>
             </div>
         </div>
@@ -65,13 +50,8 @@
         
 
         <p class="error-msg" *ngIf="errorMsg">{{errorMsg}}</p>
-        <!--<input id="reg-valid" type="submit" value="Signup" [ngStyle]="setClass()" />-->
-        <!--<input id="reg" *ngIf="!signupForm.valid" type="submit" value="Signup" disabled="true"/>
-        <input id="reg-valid" *ngIf="signupForm.valid" type="submit" value="Signup"/>-->
         <button id="reg" *ngIf="!signupForm.valid" type="button"disabled="true">Signup</button>
         <button id="reg-valid" *ngIf="signupForm.valid" type="submit">Signup</button>
-        <!--<br />-->
         <button id="login" type="button" [routerLink]="['../login']">Login</button>
-        <!--<a [routerLink]="['../login']"><< Back to login form</a>-->
     </form>
 </section>

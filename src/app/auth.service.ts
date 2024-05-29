@@ -8,8 +8,6 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
 
-  //authUrl = 'http://localhost:8080/authenticate';
-  //apiUrl = 'http://localhost:8080/api';
   authUrl = environment.API_URL + '/authenticate';
   apiUrl = environment.API_URL + '/api';
 

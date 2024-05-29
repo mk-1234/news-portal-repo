@@ -1,7 +1,6 @@
 <section>
     <div *ngIf="!userLoggedIn && !inProfile">
         <p class="smaller-font">>>
-            <!--<span class="link-style" [routerLink]="['../login']">Log in</span> to write a comment-->
             <span class="link-style" (click)="toLogin()">Log in</span> to write a comment
         </p>
     </div>
@@ -21,7 +20,6 @@
     
     <div *ngIf="comments && comments.length > 0">
         <div class="comment-area" *ngFor="let c of comments; let i = index" [ngStyle]="setBorder(i)">
-            <!--<div *ngIf="editIndex != c.id">-->
             <div>
                 <div class="for-flex">
                     <div *ngIf="!inProfile">
@@ -58,21 +56,7 @@
                 <p *ngIf="editIndex != c.id">{{c.comment}}</p>
                 <textarea *ngIf="editIndex == c.id" [(ngModel)]="commentText"></textarea>
             </div>
-            <!--<div *ngIf="editIndex == c.id" class="textarea-editing">
-                <textarea [(ngModel)]="commentText"></textarea>
-            </div>-->
             <hr *ngIf="i < comments.length - 1" />
-            <!--<div *ngIf="user && user.id == c.userId && !writingComment && mayEdit" class="flex-align-middle">-->
-            <!--<div *ngIf="user && (user.id == c.userId || mayEdit) && !writingComment" class="flex-align-middle">
-                <div *ngIf="!editingComment" class="buttons">
-                    <button id="edit" (click)="startEdit(c.id)">Edit</button>
-                    <button id="delete" (click)="delete(c.id)">Delete</button>
-                </div>
-                <div *ngIf="editingComment" class="buttons">
-                    <button id="update" (click)="doneEdit(c.id, c.articleId, c.userId, c.createdDate)">Update</button>
-                    <button id="cancel-edit" (click)="cancelEdit()">Cancel</button>
-                </div>
-            </div>-->
         </div>
     </div>
     <div *ngIf="!comments || comments.length == 0">

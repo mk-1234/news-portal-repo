@@ -227,18 +227,9 @@
         font-size: 18px;
     }
     .summary-writer {
-        /*flex-direction: row;*/
         top: 280px;
         font-size: 14px;
     }
-    /*.mainsummary {
-        width: 60%;
-        margin: 0px;
-    }*/
-    /*.mainauthor {
-        width: 35%;
-        text-align: right;
-    }*/
     .sidetitle {
         top: 95px;
         font-size: 14px;

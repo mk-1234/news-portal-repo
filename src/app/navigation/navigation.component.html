@@ -1,26 +1,3 @@
-<!--<nav id="nav-element" [ngStyle]="setNavStyle()">
-    <div class="mobile-nav">
-        <span class="material-symbols-outlined" *ngIf="!navMenuOpened" (click)="openMenu()">Menu</span>
-        <ul *ngIf="navMenuOpened">
-            <li><a (click)="openMenu()">Close Menu [ X ]</a></li>
-            <li><a [routerLink]="['']">Home</a></li>
-            <li><a [routerLink]="['category', 'Domestic']">Domestic</a></li>
-            <li><a [routerLink]="['category', 'International']">International</a></li>
-            <li><a [routerLink]="['category', 'Entertainment']">Entertainment</a></li>
-            <li><a [routerLink]="['category', 'Sport']">Sport</a></li>
-        </ul>
-    </div>
-    <ul class="larger-nav">
-        <li><a [routerLink]="['']">Home</a></li>
-        <li><a [routerLink]="['category', 'Domestic']">Domestic</a></li>
-        <li><a [routerLink]="['category', 'International']">International</a></li>
-        <li><a [routerLink]="['category', 'Entertainment']">Entertainment</a></li>
-        <li><a [routerLink]="['category', 'Sport']">Sport</a></li>
-    </ul>
-</nav>-->
-
-
-
 <nav id="nav-element-mobile" class="mobile-nav" [ngStyle]="setNavStyle()">
     <span class="material-symbols-outlined" *ngIf="!navMenuOpened" (click)="openMenu()">Menu</span>
     <ul *ngIf="navMenuOpened">
@@ -30,11 +7,6 @@
         <li><a (click)="selectMenuItem('category/International')">International</a></li>
         <li><a (click)="selectMenuItem('category/Entertainment')">Entertainment</a></li>
         <li><a (click)="selectMenuItem('category/Sport')">Sport</a></li>
-        <!--<li><a [routerLink]="['']">Home</a></li>
-        <li><a [routerLink]="['category', 'Domestic']">Domestic</a></li>
-        <li><a [routerLink]="['category', 'International']">International</a></li>
-        <li><a [routerLink]="['category', 'Entertainment']">Entertainment</a></li>
-        <li><a [routerLink]="['category', 'Sport']">Sport</a></li>-->
     </ul>
 </nav>
 

@@ -13,9 +13,7 @@ export class NavigationComponent {
   constructor(private router: Router) {}
 
   openMenu() {
-    //console.log('menu before:', this.navMenuOpened);
     this.navMenuOpened = !this.navMenuOpened;
-    //console.log('menu after:', this.navMenuOpened);
   }
 
   selectMenuItem(path: string) {
@@ -26,14 +24,9 @@ export class NavigationComponent {
   setNavStyle(): any {
     if (!this.navMenuOpened) {
       return {
-        'position': 'absolute',
-        //'margin': '16px 10px',
-        //'padding': '16px 10px'
+        'position': 'absolute'
       };
     } else {
-      /*return {
-        'position': 'static'
-      };*/
       return '';
     }
   }

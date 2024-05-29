@@ -14,15 +14,11 @@
                     <div class="delete" (click)="deleteArticle(article.id)">
                         <span class="material-symbols-outlined">delete</span>
                         <span class="desc-text">Delete</span>
-                    </div>
-                    <!--<span (click)="startEdit()" class="edit">>> Edit</span>--> |
-                    <!--<span class="material-symbols-outlined delete" (click)="delete(article.id)">delete</span>-->
-                    <!--<span (click)="delete(article.id)" class="delete">>> Delete</span>-->
+                    </div> |
                 </span>
             </p>
             <p class="link-style" [routerLink]="['../category', article.category]">{{article.category}}</p>
         </div>
-        <!--<p class="article-text">{{article.article}}</p>-->
         <p class="article-text" [innerHTML]="article.article"></p>
         <app-comments [articleId]="article.id" [user]="user"></app-comments>
     </div>
@@ -50,8 +46,6 @@
                 <p>Image
                     <span class="default-img-msg">-> Default image will be used if name is not entered.</span>
                 </p>
-                <!--<input type="file" id="image" formControlName="image" placeholder="Add image" />-->
-                <!--<input type="text" id="image" formControlName="image" placeholder="Enter the name of the image" />-->
                 <select *ngIf="imageNames && imageNames.length > 0" id="image" formControlName="image">
                     <option *ngFor="let n of imageNames" value={{n.name}}>{{n.name}}</option>
                 </select>

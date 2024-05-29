@@ -57,11 +57,8 @@ export class LoginComponent {
 
   setClass() {
     if (this.loginForm.valid) {
-      //return {'color': 'darkgreen', 'background-color': 'rgba(250, 235, 215, 0.5)'};
-      //return {'color': 'darkgreen', 'background-color': 'white'};
       return {'color': 'white', 'background-color': 'rgba(0, 80, 0, 0.4)'};
     } else {
-      //return {'color': 'rgba(100, 100, 100, 0.7)'};
       return {'color': 'rgba(64, 80, 100, 0.4)'};
     }
   }

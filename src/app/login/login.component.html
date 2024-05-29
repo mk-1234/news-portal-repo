@@ -1,6 +1,4 @@
 <section *ngIf="loginForm">
-    <!--<h2>Login</h2>-->
-    <!--<form [formGroup]="loginForm" (submit)="onLogin()">-->
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
         <div>
             <label for="username">
@@ -14,11 +12,6 @@
             <p *ngIf="errorMsg" class="errorInfo">{{errorMsg}}</p>
         </div>
         <div>
-            <!--<input *ngIf="!loginForm.valid" id="login" type="submit" value="Login" [disabled] [ngStyle]="setClass()" />
-            <input *ngIf="loginForm.valid" id="login-valid" type="submit" value="Login" [ngStyle]="setClass()" />-->
-            
-            <!--<input *ngIf="!loginForm.valid" id="login" type="button" value="Login" disabled="true"/>
-            <input *ngIf="loginForm.valid" id="login-valid" type="button" value="Login"/>-->
             <button *ngIf="!loginForm.valid" id="login" type="button" disabled="true">Login</button>
             <button *ngIf="loginForm.valid" id="login-valid" type="submit">Login</button>
 

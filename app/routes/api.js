@@ -4,7 +4,6 @@ module.exports = (express,pool, jwt, secret) => {
 
   apiRouter.get('/', (req, res) => {
     console.log('Welcome to API!');
-    //res.json({ message: 'Welcome to API!' });
     res.send({
       message: 'Welcome to the API!'
     });
@@ -12,8 +11,6 @@ module.exports = (express,pool, jwt, secret) => {
 
   apiRouter.use((req, res, next) => {
     const token = req.body.token || req.params.token || req.headers['x-access-token'] || req.query.token || req.headers["token"];
-    //console.log('token check:', token);
-    //console.log('token (req.token) check:', req.headers["token"]);
     if (token) {
       jwt.verify(token, secret, (err, decoded) => {
         if (err) {
@@ -118,7 +115,6 @@ module.exports = (express,pool, jwt, secret) => {
   .get((req, res) => {
     pool.getConnection((err, conn) => {
       if (err) throw err;
-      //let qr = 'SELECT * FROM articles WHERE category = ?';
       let qr = 'SELECT articles.*, users.username FROM articles, users WHERE articles.authorId = users.id AND category = ? ORDER BY articles.createdDate DESC';
       conn.query(qr, req.params.category, (err, result) => {
         if (err) throw err;
@@ -144,7 +140,6 @@ module.exports = (express,pool, jwt, secret) => {
   .get((req, res) => {
     pool.getConnection((err, conn) => {
       if (err) throw err;
-      //let qr = 'SELECT * FROM articles WHERE category = ?';
       let qr = 'SELECT articles.*, users.username FROM articles, users WHERE articles.authorId = users.id AND category = ? ORDER BY articles.createdDate DESC LIMIT 13';
       conn.query(qr, req.params.category, (err, result) => {
         if (err) throw err;
@@ -170,7 +165,6 @@ module.exports = (express,pool, jwt, secret) => {
   .get((req, res) => {
     pool.getConnection((err, conn) => {
       if (err) throw err;
-      //let qr = 'SELECT * FROM articles WHERE authorId = ?';
       let qr = 'SELECT articles.*, users.username FROM articles, users WHERE articles.authorId = users.id AND authorId = ? ORDER BY articles.createdDate DESC';
       conn.query(qr, req.params.authorId, (err, result) => {
         if (err) throw err;
@@ -196,7 +190,6 @@ module.exports = (express,pool, jwt, secret) => {
   .get((req, res) => {
     pool.getConnection((err, conn) => {
       if (err) throw err;
-      //let qr = 'SELECT * FROM articles WHERE id = ?';
       let qr = 'SELECT articles.*, users.username FROM articles, users WHERE articles.authorId = users.id AND articles.id = ?'
       conn.query(qr, req.params.id, (err, result) => {
         if (err) throw err;
@@ -248,7 +241,6 @@ module.exports = (express,pool, jwt, secret) => {
   .get((req, res) => {
     pool.getConnection((err, conn) => {
       if (err) throw err;
-      //let qr = 'SELECT * FROM users';
       let qr = 'SELECT id, username, firstName, lastName, email, level FROM users';
       conn.query(qr, (err, result) => {
         if (err) throw err;
@@ -267,42 +259,13 @@ module.exports = (express,pool, jwt, secret) => {
         }
       });
     });
-  })
-
-  /*.put((req, res) => {
-    pool.getConnection((err, conn) => {
-      if (err) throw err;
-      let qr = 'UPDATE users SET username = ?, firstName = ?, lastName = ?, email = ?, level = ? WHERE id = ?';
-      let values = [
-        req.body.username, req.body.firstName, req.body.lastName,
-        req.body.email, req.body.level, req.body.id
-      ];
-      conn.query(qr, values, (err, result) => {
-        if (err) throw err;
-        conn.release();
-        console.log('update user result:', result);
-        if (result.affectedRows > 0) {
-          res.send({
-            success: true, 
-            message: 'user updated', 
-            affected: result.affectedRows
-          });
-        } else {
-          res.send({
-            success: false,
-            message: 'user update failed'
-          });
-        }
-      });
-    });
-  });*/
+  });
 
   apiRouter.route('/users/:id')
 
   .get((req, res) => {
     pool.getConnection((err, conn) => {
       if (err) throw err;
-      //let qr = 'SELECT * FROM users WHERE id = ?';
       let qr = 'SELECT id, username, firstName, lastName, email, level FROM users WHERE id = ?';
       conn.query(qr, req.params.id, (err, result) => {
         if (err) throw err;
@@ -429,7 +392,6 @@ module.exports = (express,pool, jwt, secret) => {
   .get((req, res) => {
     pool.getConnection((err, conn) => {
       if (err) throw err;
-      //let qr = 'SELECT * FROM comments WHERE articleId = ?';
       let qr = 'SELECT comments.*, articles.title, users.username FROM comments, articles, users WHERE comments.userId = users.id AND comments.articleId = articles.id AND comments.articleId = ? ORDER BY comments.createdDate DESC';
       conn.query(qr, req.params.articleId, (err, result) => {
         if (err) throw err;
@@ -455,7 +417,6 @@ module.exports = (express,pool, jwt, secret) => {
   .get((req, res) => {
     pool.getConnection((err, conn) => {
       if (err) throw err;
-      //let qr = 'SELECT * FROM comments WHERE userId = ?';
       let qr = 'SELECT comments.*, articles.title, users.username FROM comments, articles, users WHERE comments.userId = users.id AND comments.articleId = articles.id AND comments.userId = ? ORDER BY comments.createdDate DESC';
       conn.query(qr, req.params.userId, (err, result) => {
         if (err) throw err;
@@ -502,7 +463,7 @@ module.exports = (express,pool, jwt, secret) => {
   });
 
 
-  // --- COMMENTS ---
+  // --- IMAGES ---
 
   apiRouter.route('/images')
 
@@ -529,13 +490,13 @@ module.exports = (express,pool, jwt, secret) => {
     });
   });
 
+
   // --- ME ---
 
   apiRouter.get('/me', (req, res) => {
     if (req.decoded) {
       res.status(200).send({
         success: true,
-        //status: 200, 
         user: req.decoded,
         message: 'req.decoded found'
       });

@@ -31,13 +31,6 @@ export class ProfileComponent implements OnInit {
     ['Comments', false]
   ];
 
-  /*icons = [
-    'admin-panel-settings',
-    'manage-accounts',
-    'newsmode',
-    'comment'
-  ];*/
-
   icons = [
     'shield',
     'person',
@@ -49,7 +42,6 @@ export class ProfileComponent implements OnInit {
   loggedInUser: any;
   users: any;
   articles: any;
-  //comments: any;
 
   maySeeComments: boolean = false;
   adminLoggedIn: boolean = false;
@@ -57,7 +49,6 @@ export class ProfileComponent implements OnInit {
   editingUser: boolean = false;
 
   interval: any;
-  //helpTextLevels: string = `Help:\nlevel 0: Administrator level\nlevel 1: Writer level\nlevel 2: Comment level`;
 
   constructor(
     private api: ApiService, 
@@ -150,11 +141,9 @@ export class ProfileComponent implements OnInit {
     for (let i = 0; i < this.tabs.length; i++) {
       if (i == nmb) {
         this.tabs[i][1] = true;
-        //setActiveTabClass(i, true);
         console.log('tab', nmb, 'activated');
       } else {
         this.tabs[i][1] = false;
-        //setActiveTabClass(i, false);
       }
     }
   }
@@ -166,7 +155,6 @@ export class ProfileComponent implements OnInit {
         'color': 'rgb(64, 80, 100)', 
         'border': '2px solid rgb(64, 80, 100)', 
         'border-bottom': '2px solid rgb(200, 200, 200)',
-        //'font-weight': 'bold',
         'background-image': 'linear-gradient(rgb(220, 220, 220) 30%, rgb(200, 200, 200) 100%)',
         'position': 'relative',
         'top': '2px'
@@ -189,7 +177,6 @@ export class ProfileComponent implements OnInit {
       delete tempObj['display'];
       tempObj = Object.assign({ 'display': 'none' }, tempObj);
     }
-    //console.log('tab style:', tempObj);
     return tempObj;
   }
 
@@ -394,13 +381,5 @@ export class ProfileComponent implements OnInit {
       'background-image': `url(../../assets/${img}.png)`
     };
   }
-
-  /*levelBtnStyle(type: number, lvl: number): any {
-    if (type == 1 && lvl == 0) {
-      return {
-
-      };
-    }
-  } */
 
 }

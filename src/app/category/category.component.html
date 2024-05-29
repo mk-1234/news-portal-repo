@@ -1,8 +1,6 @@
 <section>
     <h2>{{category}}
         <span *ngIf="loggedIn && mayWrite" class="write-article"> >
-        <!--<span class="write-article"> >-->
-            <!--<a routerLink="../../-1">Write an article</a>-->
             <a (click)="writeArticle()">Write an article</a>
         </span>
     </h2>

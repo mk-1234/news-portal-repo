@@ -143,8 +143,6 @@ export class ArticleDetailComponent implements OnInit {
           this.article = a;
           console.log('---- after edit ----\na:', a);
           console.log('article:', this.article, '\n----------');
-          this.editingArticle = false;
-          this.writingArticle = false;
         }
       }, err => {
         console.log('error in edit article:', err);
@@ -161,9 +159,6 @@ export class ArticleDetailComponent implements OnInit {
         this.editingArticle = false;
         if (res.success) {
           console.log('added article id:', res.id);
-          this.editingArticle = false;
-          this.writingArticle = false;
-          //this.router.navigate(['../', res.id]);
           this.app.refreshPage(`../${res.id}`);
         }
       }, err => {
@@ -207,7 +202,6 @@ export class ArticleDetailComponent implements OnInit {
   startEdit() {
     this.articleForm.controls['title'].setValue(this.article.title);
     this.articleForm.controls['category'].setValue(this.article.category);
-    //this.articleForm.controls['image'].setValue('');
     this.articleForm.controls['image'].setValue(this.article.image);
     this.articleForm.controls['summary'].setValue(this.article.summary);
     this.articleForm.controls['article'].setValue(this.article.article);
@@ -284,13 +278,9 @@ export class ArticleDetailComponent implements OnInit {
         'background-image': `url(../../assets/${this.article.image}.png)`
       };
     } else {
-      //if (this.articleForm.value.image) {
-        return {
-          'background-image': `url(../../assets/${this.articleForm.value.image}.png)`
-        };
-      /*} else {
-        return;
-      }*/
+      return {
+        'background-image': `url(../../assets/${this.articleForm.value.image}.png)`
+      };
     }
   }
 

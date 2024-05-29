@@ -12,7 +12,6 @@
     </p>
     <p *ngIf="loggedIn" class="log-sgnup">
         <span class="logged-in">Welcome, <span class="name">{{user.username}}</span></span> |
-        <!--<a [routerLink]="['profile', user.id]" class="logged-in profile auth-links">Profile</a> |-->
         <a class="logged-in profile auth-links" (click)="goToProfile()">Profile</a> |
         <a class="auth-links" (click)="logout()">Logout</a>
     </p>

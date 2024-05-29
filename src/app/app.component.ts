@@ -14,7 +14,6 @@ export class AppComponent implements OnInit {
   loggedIn: boolean = false;
   mayWrite: boolean = false;
   authenticated: boolean = false;
-  //token: string = '';
 
   writeCategory: string = '';
   loginFromArticle: number = -1;
@@ -28,9 +27,6 @@ export class AppComponent implements OnInit {
         this.user = res.user;
         this.loggedIn = true;
       } else {
-        /*this.loggedIn = false;
-        this.user = null;
-        this.router.navigate(['/']);*/
         this.logout();
       }
     }, (err) => {
@@ -51,30 +47,11 @@ export class AppComponent implements OnInit {
     this.loginFromArticle = articleId;
   }
 
-  /*getToken(): string {
-    if (!this.token) {
-      let sessionToken = sessionStorage.getItem('token');
-      if (sessionToken) {
-        this.token = sessionToken;
-      }
-    }
-    return this.token;
-  }
-
-  setToken(t: string): void {
-    this.token = t;
-  }*/
-
   logout(): void {
     this.user = null;
     this.loggedIn = false;
     this.authenticated = false;
-    //this.token = '';
     sessionStorage.removeItem('token');
-    //this.router.navigate(['/']);
-    /*this.router.navigateByUrl('/RefreshPage', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['/']);
-    });*/
     this.refreshPage('/');
   }
 

@@ -20,7 +20,6 @@ export class CommentsComponent implements OnInit, OnChanges {
   writingComment: boolean = false;
   editingComment: boolean = false;
   userLoggedIn: boolean = false;
-  //user: any;
 
   editIndex: number = -1;
   commentText: string = '';
@@ -66,23 +65,6 @@ export class CommentsComponent implements OnInit, OnChanges {
         this.app.logout();
       });
     }
-    //this.user['id'] = 1;
-    /*this.articleId.subscribe(() => {
-      //this.category = params['category'];
-      console.log('input article id:', this.articleId);
-      this.refreshComments();
-    });*/
-
-    //this.user = this.app.getUser();
-    //this.refreshComments();
-
-    /*this.api.getCommentsByArticle(this.articleId).subscribe(res => {
-      console.log('get all comments res:', res);
-      console.log('res message:', res.message);
-      if (res.success) {
-        this.comments = res.data;
-      }
-    });*/
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -107,18 +89,6 @@ export class CommentsComponent implements OnInit, OnChanges {
     this.router.navigate(['../login']);
   }
 
-  /*refreshComments(): void {
-    console.log('article id:', this.articleId);
-    console.log('user:', this.user);
-    this.api.getCommentsByArticle(this.articleId).subscribe(res => {
-      console.log('get all comments res:', res);
-      console.log('res message:', res.message);
-      if (res.success) {
-        this.comments = res.data;
-      }
-    });
-  }*/
-
   addComment() {
     let c = {
       articleId: this.articleId,
@@ -131,7 +101,6 @@ export class CommentsComponent implements OnInit, OnChanges {
       console.log('message:', res.message);
       if (res.success) {
         console.log('added comment id:', res.id);
-        //this.router.navigate(['../', res.id]);
         this.app.refreshPage(`../${this.articleId}`);
       }
     }, err => {
@@ -240,27 +209,16 @@ export class CommentsComponent implements OnInit, OnChanges {
   }
 
   setBorder(index: number): any {
-    if (index == 0) {
+    /*if (index == 0) {
       return {
-        /*'color': 'blue',*/
-        /*'border': 'none',
-        'border-top': '2px solid rgba()',
-        'border-radius': '15px 15px 0px 0px',*/
-        //'border-bottom': 'none'
       };
     } else if (index == this.comments.length - 1) {
       return {
-        /*'color': 'green',*/
-        //'border-radius': '0px 0px 15px 15px',
-        //'border-top': 'none'
       }
     } else {
       return {
-        /*'border-top': 'none',
-        'border-bottom': 'none'*/
-        //'border': 'none'
       }
-    }
+    }*/
   }
 
 }

@@ -28,27 +28,8 @@ export class ArticlesComponent implements OnInit {
   constructor(private api: ApiService, private app: AppComponent, private router: Router) { }
 
   ngOnInit(): void {
-    /*this.api.getAllArticles().subscribe(res => {
-      if (res.success) {
-        this.articles = res.data;
-        if (this.articles.length > 0) {
-          console.log('articles length is > 0');
-          this.mainArticle = this.articles[0];
-          for (let i = 0; i < this.articles.length; i++) {
-            if (i < 3) {
-              this.sideArticles.push(this.articles[i]);
-            } else if (i < 9) {
-              this.bottomArticles.push(this.articles[i]);
-            } else if (i < 13) {
-              this.otherArticles.push(this.articles[i]);
-            }
-          }
-        }
-      }
-    });*/
     this.api.getArticlesbyCategoryAndLimit('Domestic').subscribe(res => {
       if (res.success) {
-        //this.articles.push(res.data);
         this.articles[0] = res.data;
         if (this.articles[0].length > 0) {
           console.log('domestic articles length is > 0');
@@ -72,7 +53,6 @@ export class ArticlesComponent implements OnInit {
 
     this.api.getArticlesbyCategoryAndLimit('International').subscribe(res => {
       if (res.success) {
-        //this.articles.push(res.data);
         this.articles[1] = res.data;
         if (this.articles[1].length > 0) {
           console.log('international articles length is > 0');
@@ -96,7 +76,6 @@ export class ArticlesComponent implements OnInit {
 
     this.api.getArticlesbyCategoryAndLimit('Entertainment').subscribe(res => {
       if (res.success) {
-        //this.articles.push(res.data);
         this.articles[2] = res.data;
         if (this.articles[2].length > 0) {
           console.log('entertainment articles length is > 0');
@@ -120,7 +99,6 @@ export class ArticlesComponent implements OnInit {
 
     this.api.getArticlesbyCategoryAndLimit('Sport').subscribe(res => {
       if (res.success) {
-        //this.articles.push(res.data);
         this.articles[3] = res.data;
         if (this.articles[3].length > 0) {
           console.log('sport articles length is > 0');
@@ -142,10 +120,6 @@ export class ArticlesComponent implements OnInit {
       this.app.logout();
     });
 
-    /*if (this.app.getUser()) {
-      this.loggedIn = this.app.loggedIn;
-      this.mayWrite = this.app.getUser().level < 2 ? true : false;
-    }*/
     this.checkUser();
 
     this.interval = setInterval(() => {
